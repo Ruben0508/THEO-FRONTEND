@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Menú digital de THEO Food and Drinks." />
+  <title>Menú | THEO Food and Drinks</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/menu.css" />
+</head>
+
+<body class="pagina-menu">
+  <header class="menu-encabezado">
+    <a class="menu-marca" href="index.html" aria-label="Ir al inicio de THEO">
+      <img src="assets/images/logo.png" alt="Logo de THEO Food and Drinks" />
+      <span>THEO FOOD AND DRINKS</span>
+    </a>
+    <a class="menu-volver" href="index.html">← Inicio</a>
+  </header>
+
+  <main class="menu-principal">
+    <section class="menu-intro" aria-labelledby="titulo-menu">
+
+      <img class="menu-intro__imagen" src="assets/images/theo-menu.PNG" alt="" aria-hidden="true" />
+
+      <div class="menu-intro__contenido">
+        <p class="menu-ceja">— Elige tus favoritos</p>
+        <h1 id="titulo-menu">HAZ TU PEDIDO</h1>
+        <p>Street food con actitud. Selecciona una categoría para comenzar.</p>
+      </div>
+
+    </section>
+
+    <section class="filtros" aria-label="Filtrar productos por categoría">
+      <div id="categorias-menu" class="filtros__lista"></div>
+    </section>
+
+    <section class="productos-seccion" aria-live="polite">
+      <div class="productos-seccion__cabecera">
+        <p id="resultado-menu">Todos los productos</p>
+        <span id="contador-productos"></span>
+      </div>
+      <div id="lista-productos" class="productos-grid"></div>
+    </section>
+  </main>
+
+  <button id="boton-carrito" class="carrito-flotante" type="button" aria-label="Abrir carrito">
+    🛒
+    <span id="contador-carrito">0</span>
+  </button>
+
+  <aside id="panel-carrito" class="panel-carrito" aria-hidden="true">
+
+    <div class="panel-carrito__cabecera">
+      <h2>Tu pedido</h2>
+      <button id="cerrar-carrito" type="button" aria-label="Cerrar carrito">×</button>
+    </div>
+
+    <div id="contenido-carrito" class="panel-carrito__contenido">
+      <p class="carrito-vacio">Tu carrito está vacío.</p>
+    </div>
+
+    <div class="panel-carrito__pie">
+      <div class="carrito-total">
+        <span>Total</span>
+        <strong id="total-carrito">$0</strong>
+      </div>
+
+      <button id="continuar-pedido" class="carrito-continuar" type="button">
+        Ver pedido
+      </button>
+    </div>
+
+  </aside>
+
+  <section id="formulario-pedido" class="formulario-pedido" aria-hidden="true">
+
+    <div class="formulario-pedido__contenido">
+
+      <button id="cerrar-formulario" class="formulario-pedido__cerrar" type="button">
+        ×
+      </button>
+
+      <p class="menu-ceja">— Datos del pedido</p>
+
+      <h2>FINALIZA TU PEDIDO</h2>
+
+      <form id="form-pedido">
+
+        <label for="nombre-cliente">
+          Nombre
+        </label>
+
+        <input id="nombre-cliente" type="text" placeholder="Tu nombre" required>
+
+        <label for="direccion-cliente">
+          Dirección
+        </label>
+
+        <input id="direccion-cliente" type="text" placeholder="Dirección de entrega" required>
+
+        <label for="telefono-cliente">
+          Teléfono
+        </label>
+
+        <input id="telefono-cliente" type="tel" placeholder="Tu número de teléfono" required>
+
+        <label for="metodo-pago">
+          Método de pago
+        </label>
+
+        <select id="metodo-pago" required>
+          <option value="">Selecciona una opción</option>
+          <option value="Efectivo">Efectivo</option>
+          <option value="Transferencia">Transferencia</option>
+        </select>
+
+        <label for="nota-pedido">
+          Nota del pedido
+        </label>
+
+        <textarea id="nota-pedido" rows="4" placeholder="¿Alguna indicación especial?"></textarea>
+
+        <button class="formulario-pedido__confirmar" type="submit">
+          Confirmar pedido
+        </button>
+
+      </form>
+
+    </div>
+
+  </section>
+
+  <div id="aviso-menu" class="aviso-menu" role="status" aria-live="polite"></div>
+  <script src="js/menu.js"></script>
+</body>
+
+</html>

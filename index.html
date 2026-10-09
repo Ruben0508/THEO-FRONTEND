@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="THEO Food and Drinks - Street food con actitud." />
+  <title>THEO Food and Drinks</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <header class="encabezado" id="inicio">
+    <a class="marca" href="index.html" aria-label="Ir al inicio de THEO">
+      <img src="assets/images/logo.png" alt="Logo de THEO Food and Drinks">
+      <span>THEO FOOD AND DRINKS</span>
+    </a>
+
+    <button class="boton-menu" type="button" aria-label="Abrir menú" aria-expanded="false"
+      aria-controls="navegacion-principal">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="navegacion" id="navegacion-principal" aria-label="Navegación principal">
+      <a class="activo" href="#inicio">Inicio</a>
+      <a href="menu.html">Menú</a>
+      <a href="#nosotros">Nosotros</a>
+    </nav>
+
+    <a class="boton boton--naranja boton-ordenar" href="menu.html">Ordenar <span aria-hidden="true">→</span></a>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="titulo-principal">
+      <div class="hero__brillo hero__brillo--uno"></div>
+      <div class="hero__brillo hero__brillo--dos"></div>
+      <div class="hero__contenido">
+        <p class="etiqueta"><span></span> Street food · Since 2020</p>
+        <h1 id="titulo-principal">THEO<br /><em>FOOD</em> AND<br />DRINKS</h1>
+        <p class="hero__texto titulo-bienvenida">
+          Bienvenidos,<br />
+          a nuestra manada.
+        </p>
+        <div class="hero__acciones">
+          <a class="boton boton--naranja" href="menu.html">Ver menú <span aria-hidden="true">↗</span></a>
+          <a class="boton boton--contorno" href="menu.html">Ordenar ahora</a>
+        </div>
+      </div>
+
+      <div class="hero__arte" aria-label="Personaje y logo oficial de THEO Food and Drinks">
+        <div class="hero__imagen">
+          <img src="assets/images/theo-hero.png" alt="Personaje oficial de THEO junto al logo del restaurante" />
+        </div>
+      </div>
+    </section>
+
+    <section class="franja" id="ofertas" aria-label="Especialidades de THEO">
+      <div class="franja__pista">
+        <div class="franja__grupo">
+          <span>HAMBURGUESAS</span><i>✦</i><span>PERROS
+            CALIENTES</span><i>✦</i><span>SALCHIPAPAS</span><i>✦</i><span>SNACKS &amp; DRINKS</span><i>✦</i>
+        </div>
+        <div class="franja__grupo" aria-hidden="true">
+          <span>HAMBURGUESAS</span><i>✦</i><span>PERROS
+            CALIENTES</span><i>✦</i><span>SALCHIPAPAS</span><i>✦</i><span>SNACKS &amp; DRINKS</span><i>✦</i>
+        </div>
+      </div>
+    </section>
+
+    <section class="presentacion" id="nosotros">
+      <p class="etiqueta"><span></span> Sobre nosotros</p>
+      <h2>COMIDA SIN<br /><em>COMPLICACIONES.</em></h2>
+      <p>Sabores intensos, ingredientes frescos y la energía de la calle en cada mordisco.</p>
+    </section>
+
+    <section class="momentos" aria-label="Experiencia THEO">
+      <article class="momento momento--naranja">
+        <span class="momento__numero">01</span>
+        <p>Tu antojo,<br /><strong>sin espera.</strong></p>
+        <span class="momento__icono" aria-hidden="true">↗</span>
+      </article>
+      <article class="momento">
+        <span class="momento__numero">02</span>
+        <p>Más calle.<br /><strong>Más sabor.</strong></p>
+        <span class="momento__icono" aria-hidden="true">✦</span>
+      </article>
+      <article class="momento">
+        <span class="momento__numero">03</span>
+        <p>Siempre con<br /><strong>actitud.</strong></p>
+        <span class="momento__icono" aria-hidden="true">↗</span>
+      </article>
+    </section>
+  </main>
+
+  <footer class="pie-pagina" id="contacto">
+    <div class="pie-pagina__contenido">
+      <section class="pie-pagina__columna">
+        <h2>Contacto</h2>
+        <!-- Reemplaza estos datos por la información real del restaurante. -->
+        <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Carrera 32a #32-02 B/ Victoria </p>
+        <a
+          href="https://api.whatsapp.com/send/?phone=573156164804&utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAZnRzaAUewU1wZG9mAmZkaWQWUO49p6BDNyJpZqTFekC69F6QjQp7CGV4dG4DYWVtAjExAHNydGMGYXBwX2lkDzEyNDAyNDU3NDI4NzQxNAABp5PRxIYf1ORO3hs_MhL-7JLz5ni-NAn5p0wUInB0UrpiXu-d36vrE5x944e4_aem_WsJK8g4IWK2lBhxlwr2tWQ"><i
+            class="fa-brands fa-whatsapp" aria-hidden="true"></i> WhatsApp</a>
+      </section>
+      <section class="pie-pagina__columna">
+        <h2>Horario</h2>
+        <!-- Ajusta los días y horarios según la operación de THEO. -->
+        <p>Lun - Mar - Jue: 05:30 PM - 10:50 PM</p>
+        <p>Vier - Sáb - Dom: 12:00 PM - 11:00 PM</p>
+      </section>
+      <section class="pie-pagina__columna">
+        <h2>Síguenos</h2>
+        <!-- Agrega las URLs reales a los atributos href. -->
+        <a href="https://www.instagram.com/theoburgertulua?stkn=OXZ2dHhjam9oNGl1"><i class="fa-brands fa-instagram"
+            aria-hidden="true"></i> Instagram</a>
+        <a href="https://www.facebook.com/share/1EeToeYgCj/?mibextid=wwXIfr"><i class="fa-brands fa-facebook-f"
+            aria-hidden="true"></i> Facebook</a>
+      </section>
+      <section class="pie-pagina__columna">
+        <h2>Legal</h2>
+        <a href="#"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Política de privacidad</a>
+      </section>
+    </div>
+    <div class="pie-pagina__inferior">
+      <p>© <span id="anio-actual"></span> THEO FOOD AND DRINKS. Todos los derechos reservados.</p>
+      <p>Hecho con <strong>actitud.</strong></p>
+    </div>
+  </footer>
+  <script src="js/index.js"></script>
+</body>
+
+</html>
