@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111111">
+    <title>Administración | THEO Food and Drinks</title>
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/admin.css">
+    <script src="./js/admin.js" defer></script>
+</head>
+
+<body class="admin">
+
+    <!-- ACCESO DE ADMINISTRADOR -->
+    <section id="pantalla-login-admin" class="pantalla-login">
+        <div class="login-decoracion login-decoracion--uno"></div>
+        <div class="login-decoracion login-decoracion--dos"></div>
+
+        <div class="login-contenedor">
+            <div class="login-marca">
+                <div class="login-icono" aria-hidden="true">T</div>
+                <p class="login-nombre">THEO</p>
+                <p class="login-eslogan">FOOD AND DRINKS</p>
+            </div>
+
+            <div class="login-tarjeta">
+                <div class="login-encabezado">
+                    <span class="login-etiqueta">ACCESO SEGURO</span>
+                    <h1>Panel administrativo</h1>
+                    <p>Ingresa para gestionar el menú de tu restaurante.</p>
+                </div>
+
+                <form id="formulario-login-admin">
+                    <div class="campo-login">
+                        <label for="usuario-admin">Usuario</label>
+                        <div class="campo-login__control">
+                            <input id="usuario-admin" name="usuario" type="text" placeholder="Ingresa tu usuario"
+                                autocomplete="username" required>
+                        </div>
+                    </div>
+
+                    <div class="campo-login">
+                        <label for="password-admin">Contraseña</label>
+                        <div class="campo-login__control">
+                            <input id="password-admin" name="password" type="password"
+                                placeholder="Ingresa tu contraseña" autocomplete="current-password" required>
+                            <button type="button" id="mostrar-password-admin" class="boton-mostrar-password"
+                                aria-label="Mostrar contraseña">
+                                Ver
+                            </button>
+                        </div>
+                    </div>
+
+                    <p id="mensaje-login-admin" class="mensaje-login" role="status" aria-live="polite" hidden>
+                    </p>
+
+                    <button type="submit" id="boton-login-admin" class="boton-login">
+                        <span>Iniciar sesión</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </form>
+
+                <div class="login-seguridad">
+                    <span aria-hidden="true">●</span>
+                    Acceso exclusivo para administradores
+                </div>
+            </div>
+
+            <a href="./index.html" class="login-volver">
+                ← Volver al sitio
+            </a>
+
+            <p class="login-pie">THEO FOOD AND DRINKS · PANEL INTERNO</p>
+        </div>
+    </section>
+
+    <!-- PANEL ADMINISTRATIVO -->
+    <div id="panel-admin" hidden>
+
+        <header class="admin-header">
+            <div class="admin-identidad">
+                <span class="admin-logo" aria-hidden="true">T</span>
+                <div>
+                    <p class="admin-etiqueta">THEO FOOD AND DRINKS</p>
+                    <h1>Panel administrativo</h1>
+                    <p class="admin-descripcion">
+                        Todo listo para gestionar tu restaurante.
+                    </p>
+                </div>
+            </div>
+
+            <div class="admin-acciones-header">
+                <a href="./index.html" class="admin-volver">← Volver al sitio</a>
+                <button id="cerrar-sesion-admin" type="button">
+                    Cerrar sesión
+                </button>
+            </div>
+        </header>
+
+        <main class="admin-contenido">
+
+            <section class="admin-bienvenida">
+                <div>
+                    <span class="admin-bienvenida-etiqueta">CENTRO DE CONTROL</span>
+                    <h2>Gestiona tu menú</h2>
+                    <p>
+                        Administra tus productos, actualiza precios
+                        y controla su disponibilidad.
+                    </p>
+                </div>
+                <div class="admin-bienvenida-icono" aria-hidden="true">🍔</div>
+            </section>
+
+            <nav class="admin-accesos" aria-label="Accesos rápidos">
+                <a href="./pedidos.html" class="admin-acceso">
+                    <span class="admin-acceso-icono" aria-hidden="true">▤</span>
+                    <span>
+                        <strong>Gestionar pedidos</strong>
+                        <small>Consultar y actualizar pedidos</small>
+                    </span>
+                    <span class="admin-flecha" aria-hidden="true">→</span>
+                </a>
+
+                <a href="./menu.html" class="admin-acceso">
+                    <span class="admin-acceso-icono" aria-hidden="true">☰</span>
+                    <span>
+                        <strong>Ver menú</strong>
+                        <small>Consultar los productos publicados</small>
+                    </span>
+                    <span class="admin-flecha" aria-hidden="true">→</span>
+                </a>
+            </nav>
+
+            <section class="admin-panel">
+                <div class="admin-panel-cabecera">
+                    <div>
+                        <span class="admin-seccion-etiqueta">CATÁLOGO</span>
+                        <h2>Registrar producto</h2>
+                        <p>Añade un producto al menú del restaurante.</p>
+                    </div>
+                    <span class="admin-panel-icono" aria-hidden="true">+</span>
+                </div>
+
+                <form id="form-producto" class="admin-formulario">
+                    <div class="admin-campo">
+                        <label for="nombre">Nombre del producto</label>
+                        <input id="nombre" name="nombre" type="text" placeholder="Ej. Hamburguesa clásica"
+                            maxlength="150" required>
+                    </div>
+
+                    <div class="admin-campo">
+                        <label for="categoria">Categoría</label>
+                        <input id="categoria" name="categoria" type="text" placeholder="Ej. Hamburguesas"
+                            maxlength="100" required>
+                    </div>
+
+                    <div class="admin-campo admin-campo-completo">
+                        <label for="descripcion">Descripción</label>
+                        <textarea id="descripcion" name="descripcion" rows="3"
+                            placeholder="Ingredientes o características del producto"></textarea>
+                    </div>
+
+                    <div class="admin-campo">
+                        <label for="precio">Precio en pesos colombianos</label>
+                        <input id="precio" name="precio" type="number" min="0" step="0.01" placeholder="Ej. 16000"
+                            required>
+                    </div>
+
+                    <div class="admin-campo">
+                        <label for="imagen_url">URL de la imagen</label>
+                        <input id="imagen_url" name="imagen_url" type="url" placeholder="https://...">
+                        <small>Opcional. Puedes añadirla después.</small>
+                    </div>
+
+                    <div class="admin-formulario-acciones admin-campo-completo">
+                        <button type="submit" id="guardar-producto">
+                            Guardar producto <span aria-hidden="true">→</span>
+                        </button>
+                    </div>
+                </form>
+
+                <p id="mensaje" class="admin-mensaje" role="status" aria-live="polite"></p>
+            </section>
+
+            <section class="admin-panel">
+                <div class="admin-lista-cabecera">
+                    <div>
+                        <span class="admin-seccion-etiqueta">INVENTARIO DIGITAL</span>
+                        <h2>Productos registrados</h2>
+                        <p>Administra precios y disponibilidad.</p>
+                    </div>
+
+                    <button id="recargar" type="button" class="admin-secundario">
+                        ↻ Actualizar lista
+                    </button>
+                </div>
+
+                <p id="estado-lista" class="admin-estado-lista" role="status" aria-live="polite"></p>
+
+                <div id="lista-productos" class="admin-productos"></div>
+            </section>
+
+            <footer class="admin-footer">
+                <span>THEO FOOD AND DRINKS</span>
+                <span>Panel de administración</span>
+            </footer>
+
+        </main>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111111">
+    <title>Pedidos | THEO Food and Drinks</title>
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/pedidos.css">
+    <script src="./js/pedidos.js" defer></script>
+</head>
+
+<body class="pagina-pedidos">
+
+    <!-- Pantalla de inicio de sesión -->
+    <section id="pantalla-login" class="pantalla-login">
+        <div class="login-decoracion login-decoracion--uno"></div>
+        <div class="login-decoracion login-decoracion--dos"></div>
+
+        <div class="login-contenedor">
+            <div class="login-marca">
+                <div class="login-icono" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M4 3v7a3 3 0 0 0 6 0V3M7 3v18M17 3v18M17 3c-3 3-3 7 0 9" stroke="currentColor"
+                            stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                </div>
+
+                <p class="login-nombre">THEO</p>
+                <p class="login-eslogan">FOOD AND DRINKS</p>
+            </div>
+
+            <div class="login-tarjeta">
+                <div class="login-encabezado">
+                    <span class="login-etiqueta">ACCESO SEGURO</span>
+                    <h1>¡Bienvenido!</h1>
+                    <p>Ingresa a tu cuenta para administrar los pedidos.</p>
+                </div>
+
+                <form id="formulario-login-pedidos">
+                    <div class="campo-login">
+                        <label for="usuario-login">Usuario</label>
+                        <div class="campo-login__control">
+                            <span aria-hidden="true">👤</span>
+                            <input type="text" id="usuario-login" name="usuario" placeholder="Ingresa tu usuario"
+                                autocomplete="username" required>
+                        </div>
+                    </div>
+
+                    <div class="campo-login">
+                        <label for="password-login">Contraseña</label>
+                        <div class="campo-login__control">
+                            <span aria-hidden="true">🔒</span>
+                            <input type="password" id="password-login" name="password"
+                                placeholder="Ingresa tu contraseña" autocomplete="current-password" required>
+                            <button type="button" id="mostrar-password" class="boton-mostrar-password"
+                                aria-label="Mostrar contraseña">
+                                Ver
+                            </button>
+                        </div>
+                    </div>
+
+                    <p id="mensaje-login" class="mensaje-login" role="status" aria-live="polite" hidden>
+                    </p>
+
+                    <button type="submit" id="boton-login" class="boton-login">
+                        <span>Iniciar sesión</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </form>
+
+                <div class="login-seguridad">
+                    <span aria-hidden="true">●</span>
+                    Acceso exclusivo para personal autorizado
+                </div>
+            </div>
+
+            <a href="./admin.html" class="login-volver">
+                ← Volver al administrador
+            </a>
+
+            <p class="login-pie">THEO FOOD AND DRINKS · PANEL INTERNO</p>
+        </div>
+    </section>
+
+    <!-- Panel de gestión de pedidos -->
+    <div id="panel-pedidos" hidden>
+        <header class="pedidos-header">
+            <div>
+                <p class="marca">THEO FOOD AND DRINKS</p>
+                <h1>Gestión de pedidos</h1>
+                <p class="subtitulo">
+                    Consulta y administra los pedidos del restaurante.
+                </p>
+            </div>
+
+            <div class="pedidos-acciones-header">
+                <a class="boton-volver" href="./admin.html">
+                    Volver al administrador
+                </a>
+                <button id="cerrar-sesion-pedidos" type="button">
+                    Cerrar sesión
+                </button>
+            </div>
+        </header>
+
+        <main class="pedidos-contenedor">
+            <section class="resumen-pedidos">
+                <article class="resumen-card">
+                    <span>Total de pedidos</span>
+                    <strong id="total-pedidos">0</strong>
+                </article>
+
+                <article class="resumen-card">
+                    <span>Pendientes</span>
+                    <strong id="pedidos-pendientes">0</strong>
+                </article>
+
+                <article class="resumen-card">
+                    <span>En preparación</span>
+                    <strong id="pedidos-preparacion">0</strong>
+                </article>
+
+                <article class="resumen-card">
+                    <span>Entregados</span>
+                    <strong id="pedidos-entregados">0</strong>
+                </article>
+            </section>
+
+            <section class="pedidos-toolbar">
+                <div>
+                    <h2>Pedidos registrados</h2>
+                    <p>Consulta el detalle y actualiza el estado de cada pedido.</p>
+                </div>
+
+                <div class="pedidos-filtros">
+                    <input type="search" id="buscar-pedido" placeholder="Buscar cliente o número..."
+                        aria-label="Buscar pedidos">
+
+                    <select id="filtro-estado" aria-label="Filtrar por estado">
+                        <option value="">Todos los estados</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="En preparación">En preparación</option>
+                        <option value="Listo">Listo</option>
+                        <option value="En camino">En camino</option>
+                        <option value="Entregado">Entregado</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+
+                    <button id="actualizar-pedidos" type="button">
+                        Actualizar
+                    </button>
+                </div>
+            </section>
+
+            <p id="mensaje-pedidos" role="status" aria-live="polite"></p>
+
+            <section id="lista-pedidos" class="lista-pedidos">
+                <p class="estado-vacio">Cargando pedidos...</p>
+            </section>
+        </main>
+    </div>
+
+</body>
+
+</html>

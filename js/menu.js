@@ -1,51 +1,4 @@
-const productos = [
-  { id: 1, nombre: 'Churrasco', categoria: 'especiales', precio: 28000, descripcion: '260gr de solomo acompañado de vegetales frescos y porción de papas a la francesa.', imagen: '' },
-  { id: 2, nombre: 'Pollo', categoria: 'especiales', precio: 21000, descripcion: '220gr de filete acompañado de vegetales frescos y porción de papas a la francesa.', imagen: '' },
-  { id: 3, nombre: 'Empanadas cocteleras x8', categoria: 'snacks', precio: 8000, descripcion: 'Ocho empanadas cocteleras para compartir.', imagen: '' },
-  { id: 4, nombre: 'Dedos mozzarella x6', categoria: 'snacks', precio: 10000, descripcion: 'Seis dedos de mozzarella crujientes.', imagen: '' },
-  { id: 5, nombre: 'Papas a la francesa', categoria: 'snacks', precio: 7000, descripcion: 'Papas a la francesa, doradas y crujientes.', imagen: '' },
-  { id: 6, nombre: 'Chihuahua', categoria: 'salchipapas', precio: 18000, descripcion: 'Papas a la francesa, salchicha ranchera premium y salsas clásicas callejeras.', imagen: '' },
-  { id: 7, nombre: 'Pitbull', categoria: 'salchipapas', precio: 27500, descripcion: 'Papas, salchicha ranchera premium, carne molida, tomate verde, salsas, ripio, queso mozzarella y tocineta.', imagen: '' },
-  { id: 8, nombre: 'Callejera', categoria: 'hamburguesas', precio: 23000, descripcion: 'Vegetales frescos, carne de res, ripio crujiente, salsas callejeras, tocineta y queso mozzarella fundido.', imagen: '' },
-  { id: 9, nombre: 'Pug', categoria: 'hamburguesas', precio: 27000, descripcion: 'Vegetales frescos, doble carne de res smash, queso americano, tocineta, BBQ sweet y salsa de pepinillos.', imagen: '' },
-  { id: 10, nombre: 'Frenchie', categoria: 'hamburguesas', precio: 25000, descripcion: 'Vegetales frescos, carne de res, piña asada, queso Philadelphia, mayonesa de ajo y BBQ sweet.', imagen: '' },
-  { id: 11, nombre: 'Samoyedo', categoria: 'hamburguesas', precio: 25000, descripcion: 'Vegetales frescos, pollo apanado, mayonesa de ajo, tocineta, cebolla crispy y queso mozzarella.', imagen: '' },
-  { id: 12, nombre: 'San Bernardo', categoria: 'hamburguesas', precio: 28000, descripcion: 'Vegetales frescos, carne de res, queso americano fundido, mermelada de tocineta, salsa big mac y queso Philadelphia.', imagen: '' },
-  { id: 13, nombre: 'Beagle', categoria: 'hamburguesas', precio: 26000, descripcion: 'Vegetales frescos, carne de res 200gr o filete de pollo, tocineta, cebolla caramelizada y queso mozzarella.', imagen: '' },
-  { id: 14, nombre: 'Golden', categoria: 'hamburguesas', precio: 29000, descripcion: 'Vegetales frescos, carne de res, queso Philadelphia, tocineta, chorizo a la parrilla, pico de gallo y queso mozzarella.', imagen: '' },
-  { id: 15, nombre: 'Callejero', categoria: 'perros', precio: 22000, descripcion: 'Salchicha ranchera premium, ripio crujiente, tocineta, salsas clásicas callejeras y queso mozzarella fundido.', imagen: '' },
-  { id: 16, nombre: 'Dogo Argentino', categoria: 'perros', precio: 25000, descripcion: 'Jugosos trozos de churrasco al grill, chimichurri fresco, tomate y salsa ahumada.', imagen: '' },
-  { id: 17, nombre: 'Theo Fest', categoria: 'perros', precio: 27000, descripcion: 'Salchicha ranchera premium, carne molida jugosa, tomate verde, salsa agridulce, tocineta y queso mozzarella.', imagen: '' },
-  { id: 18, nombre: 'Malteada', categoria: 'bebidas-frias', precio: 15000, descripcion: 'Elige tu sabor: café, Oreo o Milo.', opciones: ['Café', 'Oreo', 'Milo'], imagen: '' },
-  { id: 19, nombre: 'Granizado de café', categoria: 'bebidas-frias', precio: 13000, descripcion: 'Granizado cremoso con sabor a café.', imagen: '' },
-  { id: 20, nombre: 'Milo', categoria: 'bebidas-frias', precio: 8000, descripcion: 'Bebida fría de Milo.', imagen: '' },
-  { id: 21, nombre: 'Limonada natural', categoria: 'bebidas-frias', precio: 6000, descripcion: 'Limonada natural refrescante.', imagen: '' },
-  { id: 22, nombre: 'Limonada cerezada', categoria: 'bebidas-frias', precio: 9000, descripcion: 'Limonada con sabor a cereza.', imagen: '' },
-  { id: 23, nombre: 'Limonada de coco', categoria: 'bebidas-frias', precio: 10000, descripcion: 'Limonada cremosa de coco.', imagen: '' },
-  { id: 24, nombre: 'Jugo natural en agua', categoria: 'bebidas-frias', precio: 8000, descripcion: 'Elige: mora, mango, lulo o maracuyá.', opciones: ['Mora', 'Mango', 'Lulo', 'Maracuyá'], imagen: '' },
-  { id: 25, nombre: 'Jugo natural en leche', categoria: 'bebidas-frias', precio: 9000, descripcion: 'Elige: mora, mango, lulo o maracuyá.', opciones: ['Mora', 'Mango', 'Lulo', 'Maracuyá'], imagen: '' },
-  { id: 26, nombre: 'Gaseosa personal', categoria: 'bebidas-frias', precio: 5000, descripcion: 'Coca-Cola, Ginger, Soda o Té.', imagen: '' },
-  { id: 27, nombre: 'Postobón personal', categoria: 'bebidas-frias', precio: 4000, descripcion: 'Bebida personal Postobón.', imagen: '' },
-  { id: 28, nombre: 'Agua', categoria: 'bebidas-frias', precio: 3000, descripcion: 'Agua embotellada.', imagen: '' },
-  { id: 29, nombre: 'Expreso', categoria: 'bebidas-calientes', precio: 4000, descripcion: 'Café expreso.', imagen: '' },
-  { id: 30, nombre: 'Expreso doble', categoria: 'bebidas-calientes', precio: 5000, descripcion: 'Café expreso doble.', imagen: '' },
-  { id: 31, nombre: 'Americano', categoria: 'bebidas-calientes', precio: 5000, descripcion: 'Café americano.', imagen: '' },
-  { id: 32, nombre: 'Capuccino', categoria: 'bebidas-calientes', precio: 8000, descripcion: 'Capuccino clásico.', imagen: '' },
-  { id: 33, nombre: 'Capuccino chantilly', categoria: 'bebidas-calientes', precio: 9000, descripcion: 'Capuccino con chantilly.', imagen: '' },
-  { id: 34, nombre: 'Latte', categoria: 'bebidas-calientes', precio: 8000, descripcion: 'Latte cremoso.', imagen: '' },
-  { id: 35, nombre: 'Aromática', categoria: 'bebidas-calientes', precio: 3000, descripcion: 'Aromática caliente.', imagen: '' },
-  { id: 36, nombre: 'Cervezas nacionales', categoria: 'cervezas', precio: 6000, descripcion: 'Club Colombia, Águila Light o Poker.', imagen: '' },
-  { id: 37, nombre: 'Cerveza importada', categoria: 'cervezas', precio: 9000, descripcion: 'Corona o Stella Artois.', imagen: '' },
-  { id: 38, nombre: 'Michelada', categoria: 'cervezas', precio: 2000, descripcion: 'Adición de michelada.', imagen: '' },
-  { id: 39, nombre: 'Queso mozzarella', categoria: 'adiciones', precio: 3000, descripcion: 'Adición de queso mozzarella.', imagen: '' },
-  { id: 40, nombre: 'Queso Philadelphia', categoria: 'adiciones', precio: 4000, descripcion: 'Adición de queso Philadelphia.', imagen: '' },
-  { id: 41, nombre: 'Tocineta crocante', categoria: 'adiciones', precio: 3000, descripcion: 'Adición de tocineta crocante.', imagen: '' },
-  { id: 42, nombre: 'Carne 100gr Smash', categoria: 'adiciones', precio: 6000, descripcion: 'Adición de carne smash de 100gr.', imagen: '' },
-  { id: 43, nombre: 'Carne 130gr', categoria: 'adiciones', precio: 7000, descripcion: 'Adición de carne de res de 130gr.', imagen: '' },
-  { id: 44, nombre: 'Carne 200gr', categoria: 'adiciones', precio: 10000, descripcion: 'Adición de carne de res de 200gr.', imagen: '' },
-  { id: 45, nombre: 'Pollo apanado', categoria: 'adiciones', precio: 10000, descripcion: 'Adición de pollo apanado.', imagen: '' },
-  { id: 46, nombre: 'Filete de pollo', categoria: 'adiciones', precio: 10000, descripcion: 'Adición de filete de pollo.', imagen: '' }
-];
+let productos = [];
 
 const categorias = [
   { id: 'todo', nombre: 'Todo', icono: '●' }, { id: 'hamburguesas', nombre: 'Hamburguesas', icono: '🍔' }, { id: 'perros', nombre: 'Perros', icono: '🌭' }, { id: 'salchipapas', nombre: 'Salchipapas', icono: '🍟' }, { id: 'snacks', nombre: 'Snacks', icono: '🍿' }, { id: 'especiales', nombre: 'Especiales', icono: '⭐' }, { id: 'bebidas-frias', nombre: 'Bebidas frías', icono: '🥤' }, { id: 'cervezas', nombre: 'Cervezas', icono: '🍺' }, { id: 'bebidas-calientes', nombre: 'Bebidas calientes', icono: '☕' }, { id: 'adiciones', nombre: 'Adiciones', icono: '＋' }
@@ -71,6 +24,42 @@ const formularioPedido = document.querySelector('#formulario-pedido');
 const cerrarFormulario = document.querySelector('#cerrar-formulario');
 const formPedido = document.querySelector('#form-pedido');
 const numeroWhatsApp = '573156164804';
+
+
+const API_PRODUCTOS = 'http://localhost:3000/api/productos';
+
+async function cargarProductos() {
+  try {
+    const respuesta = await fetch(API_PRODUCTOS);
+
+    if (!respuesta.ok) {
+      throw new Error('No se pudieron consultar los productos');
+    }
+
+    const datos = await respuesta.json();
+
+    productos = datos
+      .filter(producto => producto.disponible)
+      .map(producto => ({
+        id: producto.id,
+        nombre: producto.nombre,
+        categoria: producto.categoria,
+        precio: Number(producto.precio),
+        descripcion: producto.descripcion || '',
+        opciones: producto.opciones || [],
+        imagen: producto.imagen_url || ''
+      }));
+
+    renderizarCategorias();
+    renderizarProductos();
+  } catch (error) {
+    console.error('Error al cargar el menú:', error);
+    aviso.textContent =
+      'No se pudo cargar el menú. Verifica que el servidor esté funcionando.';
+    aviso.classList.add('visible');
+  }
+}
+
 
 const escaparHTML = (texto) => texto.replace(/[&<>'"]/g, (caracter) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' })[caracter]);
 
@@ -169,11 +158,20 @@ const renderizarProductos = () => {
     <article class="producto">
       <div class="producto__imagen">${producto.imagen ? `<img src="${escaparHTML(producto.imagen)}" alt="${escaparHTML(producto.nombre)}" />` : ''}</div>
       <div class="producto__cuerpo">
-        <p class="producto__categoria">${escaparHTML(categorias.find((item) => item.id === producto.categoria).nombre)}</p>
+        <p class="producto__categoria">${escaparHTML(categorias.find((item) => item.id === producto.categoria)?.nombre || producto.categoria)}</p>
         <h2>${escaparHTML(producto.nombre)}</h2>
         <p class="producto__descripcion">${escaparHTML(producto.descripcion)}</p>
         <div class="producto__configuracion">
-          ${producto.opciones ? `<label class="producto__opciones" for="opcion-${producto.id}">Elige tu sabor<select id="opcion-${producto.id}" data-opcion="${producto.id}">${producto.opciones.map((opcion) => `<option value="${escaparHTML(opcion)}">${escaparHTML(opcion)}</option>`).join('')}</select></label>` : ''}
+          ${Array.isArray(producto.opciones) && producto.opciones.length > 0 ? `
+  <label class="producto__opciones" for="opcion-${producto.id}">
+    Elige tu sabor
+    <select id="opcion-${producto.id}" data-opcion="${producto.id}">
+      ${producto.opciones.map(opcion => `
+        <option value="${escaparHTML(opcion)}">${escaparHTML(opcion)}</option>
+      `).join('')}
+    </select>
+  </label>
+` : ''}
           <div class="producto__cantidad"><span>Cantidad</span><div class="cantidad-control"><button type="button" data-accion-cantidad="restar" aria-label="Disminuir cantidad">−</button><input type="number" min="1" value="${cantidadesSeleccionadas[producto.id] || 1}" data-cantidad="${producto.id}" aria-label="Cantidad de ${escaparHTML(producto.nombre)}" /><button type="button" data-accion-cantidad="sumar" aria-label="Aumentar cantidad">+</button></div></div>
         </div>
         <div class="producto__pie"><span class="producto__precio">${formatoPrecio.format(producto.precio)}</span><button class="producto__agregar" type="button" data-producto="${producto.id}">Agregar</button></div>
@@ -357,10 +355,13 @@ cerrarFormulario.addEventListener('click', () => {
   formularioPedido.setAttribute('aria-hidden', 'true');
 });
 
-formPedido.addEventListener('submit', (evento) => {
+
+formPedido.addEventListener('submit', async (evento) => {
   evento.preventDefault();
 
   if (!carrito.length) {
+    aviso.textContent = 'Agrega al menos un producto al carrito.';
+    aviso.classList.add('visible');
     return;
   }
 
@@ -370,51 +371,101 @@ formPedido.addEventListener('submit', (evento) => {
   const metodoPago = document.querySelector('#metodo-pago').value;
   const nota = document.querySelector('#nota-pedido').value.trim();
 
-  const productosPedido = carrito.map((item) => {
-    const opcion = item.opcion
-      ? ` - ${item.opcion}`
-      : '';
+  // Abrir una pestaña para WhatsApp antes de esperar la respuesta
+  const ventanaWhatsApp = window.open('about:blank', '_blank');
 
-    const subtotal = item.precio * item.cantidad;
+  try {
+    aviso.textContent = 'Registrando tu pedido...';
+    aviso.classList.add('visible');
 
-    return `${item.cantidad}x ${item.nombre}${opcion} - ${formatoPrecio.format(subtotal)}`;
-  }).join('\n');
+    // Guardar el pedido en PostgreSQL a través del backend
+    const respuesta = await fetch('http://localhost:3000/api/pedidos', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        cliente_nombre: nombre,
+        cliente_direccion: direccion,
+        cliente_telefono: telefono,
+        metodo_pago: metodoPago,
+        nota: nota,
+        tipo_pedido: 'Domicilio',
+        productos: carrito.map(item => ({
+          producto_id: item.id,
+          cantidad: item.cantidad,
+          opcion: item.opcion || ''
+        }))
+      })
+    });
 
-  const total = carrito.reduce(
-    (suma, item) => suma + item.precio * item.cantidad,
-    0
-  );
+    const resultado = await respuesta.json();
 
-  const mensaje = `
-🍔 *NUEVO PEDIDO - THEO FOOD AND DRINKS*
+    if (!respuesta.ok) {
+      throw new Error(resultado.mensaje || 'No se pudo registrar el pedido');
+    }
 
-👤 *Cliente:* ${nombre}
-📱 *Teléfono:* ${telefono}
-📍 *Dirección:* ${direccion}
+    const productosPedido = carrito.map(item => {
+      const opcion = item.opcion ? ` - ${item.opcion}` : '';
+      const subtotal = item.precio * item.cantidad;
 
-🛒 *PEDIDO:*
+      return `${item.cantidad}x ${item.nombre}${opcion} - ${formatoPrecio.format(subtotal)}`;
+    }).join('\n');
+
+    const total = carrito.reduce(
+      (suma, item) => suma + item.precio * item.cantidad,
+      0
+    );
+
+    console.log('Prueba de emojis:', '🍔 🧾 👤 📱 📍 🛒 💰 💳 📝');
+
+    const mensaje = `
+\u{1F354} *NUEVO PEDIDO - THEO FOOD AND DRINKS*
+
+\u{1F9FE} *Pedido número:* ${resultado.pedido.id}
+\u{1F464} *Cliente:* ${nombre}
+\u{1F4F1} *Teléfono:* ${telefono}
+\u{1F4CD} *Dirección:* ${direccion}
+
+\u{1F6D2} *PEDIDO:*
 ${productosPedido}
 
-💰 *TOTAL:* ${formatoPrecio.format(total)}
-
-💳 *Método de pago:* ${metodoPago}
-
-📝 *Nota:*
+\u{1F4B0} *TOTAL:* ${formatoPrecio.format(total)}
+\u{1F4B3} *Método de pago:* ${metodoPago}
+\u{1F4DD} *Nota:*
 ${nota || 'Sin nota'}
 `;
 
-  const mensajeCodificado = encodeURIComponent(mensaje);
+    const urlWhatsApp =
+      `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
 
-  const urlWhatsApp =
-    `https://wa.me/${numeroWhatsApp}?text=${mensajeCodificado}`;
+    if (ventanaWhatsApp) {
+      ventanaWhatsApp.location.href = urlWhatsApp;
+    } else {
+      window.location.href = urlWhatsApp;
+    }
 
-  window.open(urlWhatsApp, '_blank');
+    aviso.textContent = `¡Pedido #${resultado.pedido.id} registrado correctamente!`;
+    aviso.classList.add('visible');
+
+  } catch (error) {
+    console.error('Error al registrar el pedido:', error);
+
+    if (ventanaWhatsApp) {
+      ventanaWhatsApp.close();
+    }
+
+    aviso.textContent =
+      error.message || 'No se pudo registrar el pedido. Inténtalo nuevamente.';
+    aviso.classList.add('visible');
+  }
 });
+
 
 
 renderizarCarrito();
 renderizarCategorias();
-renderizarProductos();
+cargarProductos();
 
 const parametrosURL = new URLSearchParams(window.location.search);
 const modoLectura = parametrosURL.get('modo') === 'ver';

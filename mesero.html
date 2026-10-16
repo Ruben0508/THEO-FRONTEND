@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THEO | Módulo de Meseros</title>
+
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/mesero.css">
+</head>
+
+<body>
+
+    <header class="mesero-header">
+        <div>
+            <h1>THEO <span>Food and Drinks</span></h1>
+            <p>Módulo de meseros</p>
+        </div>
+
+        <nav>
+            <a href="./admin.html">Administración</a>
+            <a href="./pedidos.html">Ver pedidos</a>
+        </nav>
+    </header>
+
+    <main class="mesero-contenedor">
+
+        <section class="panel-mesa">
+            <h2>Nuevo pedido</h2>
+
+            <div class="campo">
+                <label for="numero-mesa">Número de mesa</label>
+                <input type="number" id="numero-mesa" min="1" placeholder="Ej. 4" required>
+            </div>
+
+            <div class="campo">
+                <label for="nombre-cliente">Nombre del cliente (opcional)</label>
+                <input type="text" id="nombre-cliente" placeholder="Nombre del cliente">
+            </div>
+
+            <div class="campo">
+                <label for="metodo-pago">Método de pago</label>
+                <select id="metodo-pago">
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Transferencia">Transferencia</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="panel-productos">
+            <h2>Menú</h2>
+
+            <div class="filtros">
+                <input type="search" id="buscar-producto" placeholder="Buscar producto...">
+
+                <select id="filtro-categoria">
+                    <option value="">Todas las categorías</option>
+                </select>
+            </div>
+
+            <div id="lista-productos">
+                <p>Cargando productos...</p>
+            </div>
+        </section>
+
+        <aside class="panel-comanda">
+            <h2>Comanda</h2>
+
+            <div id="lista-comanda">
+                <p>Aún no has agregado productos.</p>
+            </div>
+
+            <div class="comanda-total">
+                <span>Total</span>
+                <strong id="total-comanda">$0</strong>
+            </div>
+
+            <button type="button" id="vaciar-comanda">
+                Vaciar comanda
+            </button>
+
+            <button type="button" id="crear-pedido">
+                Registrar pedido
+            </button>
+
+            <p id="mensaje-mesero" role="status"></p>
+        </aside>
+
+    </main>
+
+    <script src="./js/mesero.js"></script>
+</body>
+
+</html>

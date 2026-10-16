@@ -1,0 +1,432 @@
+/* THEO | Módulo de meseros */
+:root {
+    --mesero-naranja: #e07d05;
+    --mesero-naranja-hover: #ff981a;
+    --mesero-negro: #080808;
+    --mesero-panel: #141414;
+    --mesero-borde: #373737;
+    --mesero-blanco: #fff;
+    --mesero-gris: #aaa;
+}
+
+/* Encabezado */
+.mesero-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 24px 5%;
+    color: var(--mesero-blanco);
+    background: var(--mesero-negro);
+    border-bottom: 2px solid var(--mesero-naranja);
+}
+
+.mesero-header h1 {
+    margin: 0;
+    font: 1.8rem Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.mesero-header h1 span {
+    color: var(--mesero-naranja);
+}
+
+.mesero-header p {
+    margin: 5px 0 0;
+    color: #ccc;
+}
+
+.mesero-header nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.mesero-header nav a {
+    padding: 10px 14px;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 8px;
+    transition: .2s;
+}
+
+.mesero-header nav a:hover {
+    color: var(--mesero-negro);
+    background: var(--mesero-naranja);
+    border-color: var(--mesero-naranja);
+}
+
+/* Distribución y paneles */
+.mesero-contenedor {
+    display: grid;
+    grid-template-columns: minmax(210px, .8fr) minmax(300px, 1.6fr) minmax(260px, 1fr);
+    align-items: start;
+    gap: 22px;
+    width: 100%;
+    max-width: 1700px;
+    margin: auto;
+    padding: 28px 4%;
+}
+
+.panel-mesa,
+.panel-productos,
+.panel-comanda {
+    min-width: 0;
+    padding: 20px;
+    color: #fff;
+    background: var(--mesero-panel);
+    border: 1px solid #303030;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px #0004;
+}
+
+.mesero-contenedor h2 {
+    margin: 0 0 18px;
+    padding-bottom: 12px;
+    color: #fff;
+    border-bottom: 1px solid #333;
+    font-size: 1.25rem;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
+/* Campos y filtros */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 17px;
+}
+
+.campo label {
+    color: #ccc;
+    font-size: .9rem;
+    font-weight: 600;
+}
+
+.campo input,
+.campo select,
+.filtros input,
+.filtros select {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 12px;
+    color: #fff;
+    background: #202020;
+    border: 1px solid #424242;
+    border-radius: 8px;
+    font: inherit;
+}
+
+.campo input:focus,
+.campo select:focus,
+.filtros input:focus,
+.filtros select:focus {
+    border-color: var(--mesero-naranja);
+    outline: 1px solid var(--mesero-naranja);
+}
+
+.filtros {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+/* Tarjetas de productos */
+#lista-productos {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 16px;
+}
+
+#lista-productos .producto-mesero {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 13px;
+    min-width: 0;
+    min-height: 235px;
+    margin: 0;
+    padding: 18px;
+    color: #fff;
+    background: linear-gradient(145deg, #202020, #111);
+    border: 1px solid var(--mesero-borde);
+    border-radius: 12px;
+    box-shadow: 0 5px 16px #0003;
+    transition: border-color .2s, transform .2s, box-shadow .2s;
+}
+
+#lista-productos .producto-mesero:hover {
+    transform: translateY(-3px);
+    border-color: var(--mesero-naranja);
+    box-shadow: 0 8px 22px #e07d051a;
+}
+
+.producto-cabecera {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+}
+
+.producto-etiqueta {
+    color: var(--mesero-naranja);
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+}
+
+#lista-productos .producto-mesero .producto-categoria {
+    color: var(--mesero-gris);
+    font-size: .75rem;
+    text-transform: capitalize;
+}
+
+#lista-productos .producto-mesero h3 {
+    margin: 4px 0;
+    color: #fff;
+    font: 1.3rem Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    line-height: 1.25;
+    text-transform: uppercase;
+    overflow-wrap: anywhere;
+}
+
+.producto-pie {
+    margin-top: auto;
+}
+
+#lista-productos .producto-mesero .producto-precio {
+    display: block;
+    color: var(--mesero-naranja);
+    font-size: 1.35rem;
+    font-weight: 900;
+}
+
+.producto-opcion-label {
+    color: #ccc;
+    font-size: .8rem;
+}
+
+#lista-productos .producto-mesero .producto-opcion {
+    width: 100%;
+    min-width: 0;
+    padding: 11px;
+    color: #fff;
+    background: #292929;
+    border: 1px solid #484848;
+    border-radius: 7px;
+    font: inherit;
+}
+
+#lista-productos .producto-mesero .producto-agregar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-height: 45px;
+    margin-top: auto;
+    padding: 10px;
+    color: var(--mesero-negro);
+    background: var(--mesero-naranja);
+    border: 0;
+    border-radius: 7px;
+    font-size: .8rem;
+    font-weight: 900;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color .2s, transform .2s;
+}
+
+#lista-productos .producto-mesero .producto-agregar span {
+    font-size: 1.25rem;
+}
+
+#lista-productos .producto-mesero .producto-agregar:hover {
+    background: var(--mesero-naranja-hover);
+}
+
+#lista-productos .producto-mesero .producto-agregar:active {
+    transform: scale(.98);
+}
+
+.productos-vacios {
+    grid-column: 1 / -1;
+    color: var(--mesero-gris);
+}
+
+/* Comanda */
+.panel-comanda {
+    position: sticky;
+    top: 15px;
+}
+
+#lista-comanda,
+#lista-comanda p {
+    color: #fff;
+}
+
+#lista-comanda>p {
+    color: var(--mesero-gris);
+}
+
+.item-comanda {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 13px 0;
+    color: #fff;
+    border-bottom: 1px solid #333;
+}
+
+.item-comanda-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.item-comanda-info strong {
+    display: block;
+    color: #fff;
+    overflow-wrap: anywhere;
+}
+
+.item-comanda-info small {
+    display: block;
+    margin-top: 4px;
+    color: var(--mesero-gris);
+}
+
+.item-comanda-controles {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.item-comanda-controles button {
+    min-width: 28px;
+    padding: 4px 8px;
+    color: #fff;
+    background: #292929;
+    border: 1px solid #444;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.item-comanda-controles .eliminar-item {
+    color: #ff8a8a;
+}
+
+.item-comanda-subtotal {
+    color: var(--mesero-naranja);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.comanda-total {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 20px 0;
+    padding-top: 15px;
+    color: #fff;
+    border-top: 2px solid #333;
+    font-size: 1.15rem;
+}
+
+#total-comanda {
+    color: var(--mesero-naranja);
+}
+
+#vaciar-comanda,
+#crear-pedido {
+    width: 100%;
+    margin-top: 9px;
+    padding: 11px 13px;
+    border: 0;
+    border-radius: 8px;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    transition: background-color .2s;
+}
+
+#vaciar-comanda {
+    color: #fff;
+    background: #292929;
+    border: 1px solid #444;
+}
+
+#vaciar-comanda:hover {
+    background: #383838;
+}
+
+#crear-pedido {
+    color: var(--mesero-negro);
+    background: var(--mesero-naranja);
+    text-transform: uppercase;
+}
+
+#crear-pedido:hover {
+    background: var(--mesero-naranja-hover);
+}
+
+#crear-pedido:disabled {
+    cursor: not-allowed;
+    opacity: .55;
+}
+
+#mensaje-mesero {
+    color: #fff;
+    font-size: .9rem;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+#mensaje-mesero.mensaje-error {
+    color: #f87171;
+}
+
+#mensaje-mesero.mensaje-exito {
+    color: #4ade80;
+}
+
+/* Adaptación a pantallas */
+@media (max-width: 1050px) {
+    .mesero-contenedor {
+        grid-template-columns: minmax(220px, .8fr) minmax(300px, 1.4fr);
+    }
+
+    .panel-comanda {
+        position: static;
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 650px) {
+    .mesero-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 18px;
+    }
+
+    .mesero-contenedor {
+        grid-template-columns: 1fr;
+        padding: 14px;
+    }
+
+    .panel-comanda {
+        grid-column: auto;
+    }
+
+    .filtros,
+    #lista-productos {
+        grid-template-columns: 1fr;
+    }
+}
