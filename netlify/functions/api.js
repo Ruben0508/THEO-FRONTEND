@@ -1,12 +1,11 @@
 
-require('dotenv').config();
+const serverless = require('serverless-http');
 
-const express = require('express');
-const cors = require('cors');
-const pool = require('./config/database');
+const express = require('../../../Backend/node_modules/express');
+const cors = require('../../../Backend/node_modules/cors');
+const pool = require('../../../Backend/config/database');
 
 const app = express();
-const PORT = 3000;
 
 app.use(cors({
     origin: [
@@ -18,14 +17,12 @@ app.use(cors({
 
 app.use(express.json());
 
-// Comprobar el estado del backend
 app.get('/api/estado', (req, res) => {
     res.json({
         mensaje: 'Backend de THEO funcionando correctamente'
     });
 });
 
-// Probar la conexión con PostgreSQL
 app.get('/api/estado-db', async (req, res) => {
     try {
         const resultado = await pool.query('SELECT NOW() AS fecha');
@@ -36,23 +33,14 @@ app.get('/api/estado-db', async (req, res) => {
         });
     } catch (error) {
         console.error('Error al conectar con PostgreSQL:', error.message);
-
         res.status(500).json({
             mensaje: 'No se pudo conectar con la base de datos'
         });
     }
 });
 
-// Rutas de productos
-const rutasProductos = require('./routes/productos');
-app.use('/api/productos', rutasProductos);
+app.use('/api/productos', require('../../../Backend/routes/productos'));
+app.use('/api/pedidos', require('../../../Backend/routes/pedidos'));
+app.use('/api/auth', require('../../../Backend/routes/auth'));
 
-const rutasPedidos = require('./routes/pedidos');
-app.use('/api/pedidos', rutasPedidos);
-
-const rutasAuth = require('./routes/auth');
-app.use('/api/auth', rutasAuth);
-
-app.listen(PORT, () => {
-    console.log(`Servidor THEO activo en http://localhost:${PORT}`);
-});
+module.exports.handler = serverless(app);
