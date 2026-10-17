@@ -1,6 +1,6 @@
 
-const API = 'http://localhost:3000/api/productos';
-const API_AUTH = 'http://localhost:3000/api/auth';
+const API = 'https://theo-backend-1j17.onrender.com/api/productos';
+const API_AUTH = 'https://theo-backend-1j17.onrender.com/api/auth';
 
 const pantallaLogin = document.querySelector('#pantalla-login-admin');
 const panelAdmin = document.querySelector('#panel-admin');

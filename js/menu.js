@@ -26,7 +26,7 @@ const formPedido = document.querySelector('#form-pedido');
 const numeroWhatsApp = '573156164804';
 
 
-const API_PRODUCTOS = 'http://localhost:3000/api/productos';
+const API_PRODUCTOS = 'https://theo-backend-1j17.onrender.com/api/productos';
 
 async function cargarProductos() {
   try {
@@ -379,7 +379,7 @@ formPedido.addEventListener('submit', async (evento) => {
     aviso.classList.add('visible');
 
     // Guardar el pedido en PostgreSQL a través del backend
-    const respuesta = await fetch('http://localhost:3000/api/pedidos', {
+    const respuesta = await fetch('https://theo-backend-1j17.onrender.com/api/pedidos', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

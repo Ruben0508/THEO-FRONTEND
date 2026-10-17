@@ -1,6 +1,6 @@
 
-const API_PEDIDOS = 'http://localhost:3000/api/pedidos';
-const API_AUTH = 'http://localhost:3000/api/auth';
+const API_PEDIDOS = 'https://theo-backend-1j17.onrender.com/api/pedidos';
+const API_AUTH = 'https://theo-backend-1j17.onrender.com/api/auth';
 
 const pantallaLogin = document.querySelector('#pantalla-login');
 const panelPedidos = document.querySelector('#panel-pedidos');

@@ -1,9 +1,9 @@
 // ===== MÓDULO DE MESEROS THEO =====
 
-const API_PRODUCTOS = 'http://localhost:3000/api/productos';
-const API_PEDIDOS = 'http://localhost:3000/api/pedidos';
+const API_PRODUCTOS = 'https://theo-backend-1j17.onrender.com/api/productos';
+const API_PEDIDOS = 'https://theo-backend-1j17.onrender.com/api/pedidos';
 
-const API_AUTH = 'http://localhost:3000/api/auth';
+const API_AUTH = 'https://theo-backend-1j17.onrender.com/api/auth';
 
 let tokenMesero = sessionStorage.getItem('theo_mesero_token');
 let usuarioMesero = JSON.parse(
