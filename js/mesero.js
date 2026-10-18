@@ -1,63 +1,126 @@
-// ===== MÓDULO DE MESEROS THEO =====
 
 const API_PRODUCTOS = 'https://theo-backend-1j17.onrender.com/api/productos';
 const API_PEDIDOS = 'https://theo-backend-1j17.onrender.com/api/pedidos';
-
 const API_AUTH = 'https://theo-backend-1j17.onrender.com/api/auth';
 
+const pantallaLogin = document.getElementById('pantalla-login-mesero');
+const panelMesero = document.getElementById('panel-mesero');
+const formularioLogin = document.getElementById('formulario-login-mesero');
+const usuarioLogin = document.getElementById('usuario-mesero');
+const passwordLogin = document.getElementById('password-mesero');
+const botonLogin = document.getElementById('boton-login-mesero');
+const botonMostrarPassword = document.getElementById('mostrar-password-mesero');
+const mensajeLogin = document.getElementById('mensaje-login-mesero');
+
 let tokenMesero = sessionStorage.getItem('theo_mesero_token');
-let usuarioMesero = JSON.parse(
-    sessionStorage.getItem('theo_mesero_usuario') || 'null'
-);
 
-async function iniciarSesionMesero() {
-    const usuario = prompt('Usuario del mesero:');
-    if (usuario === null) return false;
-
-    const password = prompt('Contraseña del mesero:');
-    if (password === null) return false;
-
-    const respuesta = await fetch(`${API_AUTH}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ usuario, password })
-    });
-
-    const datos = await respuesta.json();
-
-    if (!respuesta.ok) {
-        throw new Error(datos.mensaje || 'No se pudo iniciar sesión');
+function leerUsuarioMesero() {
+    try {
+        return JSON.parse(
+            sessionStorage.getItem('theo_mesero_usuario') || 'null'
+        );
+    } catch {
+        return null;
     }
-
-    if (datos.usuario.rol !== 'mesero') {
-        throw new Error('Esta cuenta no tiene permisos de mesero');
-    }
-
-    tokenMesero = datos.token;
-    usuarioMesero = datos.usuario;
-
-    sessionStorage.setItem('theo_mesero_token', tokenMesero);
-    sessionStorage.setItem(
-        'theo_mesero_usuario',
-        JSON.stringify(usuarioMesero)
-    );
-
-    return true;
 }
 
-async function asegurarSesionMesero() {
-    if (tokenMesero && usuarioMesero?.rol === 'mesero') {
-        return true;
-    }
+let usuarioMesero = leerUsuarioMesero();
 
+function mostrarLogin(texto = '') {
+    pantallaLogin.hidden = false;
+    panelMesero.hidden = true;
+    mensajeLogin.textContent = texto;
+    mensajeLogin.hidden = !texto;
+}
+
+function mostrarPanel() {
+    pantallaLogin.hidden = true;
+    panelMesero.hidden = false;
+
+    document.getElementById('nombre-sesion-mesero').textContent =
+        `Sesión iniciada: ${usuarioMesero?.usuario || 'Mesero'}`;
+}
+
+function limpiarSesionMesero() {
     tokenMesero = null;
     usuarioMesero = null;
 
     sessionStorage.removeItem('theo_mesero_token');
     sessionStorage.removeItem('theo_mesero_usuario');
-
-    return iniciarSesionMesero();
 }
+
+function cerrarSesionMesero(texto = '') {
+    limpiarSesionMesero();
+    formularioLogin.reset();
+    mostrarLogin(texto);
+}
+
+formularioLogin.addEventListener('submit', async evento => {
+    evento.preventDefault();
+
+    botonLogin.disabled = true;
+    botonLogin.textContent = 'Verificando...';
+    mensajeLogin.hidden = true;
+
+    try {
+        const respuesta = await fetch(`${API_AUTH}/login`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                usuario: usuarioLogin.value.trim(),
+                password: passwordLogin.value
+            })
+        });
+
+        const datos = await respuesta.json().catch(() => ({}));
+
+        if (!respuesta.ok) {
+            throw new Error(datos.mensaje || 'No se pudo iniciar sesión.');
+        }
+
+        if (!datos.token || datos.usuario?.rol !== 'mesero') {
+            throw new Error('Esta cuenta no tiene permisos de mesero.');
+        }
+
+        tokenMesero = datos.token;
+        usuarioMesero = datos.usuario;
+
+        sessionStorage.setItem('theo_mesero_token', tokenMesero);
+        sessionStorage.setItem(
+            'theo_mesero_usuario',
+            JSON.stringify(usuarioMesero)
+        );
+
+        passwordLogin.value = '';
+        mostrarPanel();
+        await cargarProductos();
+
+    } catch (error) {
+        mensajeLogin.textContent = error.message;
+        mensajeLogin.hidden = false;
+    } finally {
+        botonLogin.disabled = false;
+        botonLogin.innerHTML =
+            '<span>Iniciar sesión</span><span aria-hidden="true">→</span>';
+    }
+});
+
+botonMostrarPassword.addEventListener('click', () => {
+    const mostrar = passwordLogin.type === 'password';
+
+    passwordLogin.type = mostrar ? 'text' : 'password';
+    botonMostrarPassword.textContent = mostrar ? 'Ocultar' : 'Ver';
+    botonMostrarPassword.setAttribute(
+        'aria-label',
+        mostrar ? 'Ocultar contraseña' : 'Mostrar contraseña'
+    );
+});
+
+document.getElementById('cerrar-sesion-mesero').addEventListener('click', () => {
+    cerrarSesionMesero();
+    usuarioLogin.focus();
+});
+
 
 let productos = [];
 let comanda = [];
@@ -319,12 +382,6 @@ function renderizarComanda() {
     botonRegistrar.disabled = comanda.length === 0;
 }
 
-const total = comanda.reduce(
-    (suma, item) => suma + item.precio * item.cantidad, 0
-);
-
-totalComanda.textContent = formatoPrecio(total);
-botonRegistrar.disabled = comanda.length === 0;
 
 // Controlar cantidades y eliminar productos
 listaComanda.addEventListener('click', evento => {
@@ -413,7 +470,10 @@ botonRegistrar.addEventListener('click', async () => {
     mostrarMensaje('Guardando pedido...');
 
     try {
-        await asegurarSesionMesero();
+        if (!tokenMesero || usuarioMesero?.rol !== 'mesero') {
+            cerrarSesionMesero('Inicia sesión nuevamente para registrar pedidos.');
+            return;
+        }
 
         const respuesta = await fetch(API_PEDIDOS, {
             method: 'POST',
@@ -423,6 +483,11 @@ botonRegistrar.addEventListener('click', async () => {
             },
             body: JSON.stringify(pedido)
         });
+
+        if (respuesta.status === 401 || respuesta.status === 403) {
+            cerrarSesionMesero('Tu sesión venció o no tienes permisos. Inicia sesión nuevamente.');
+            return;
+        }
 
         const resultado = await respuesta.json().catch(() => ({}));
 
@@ -455,5 +520,13 @@ botonRegistrar.addEventListener('click', async () => {
 });
 
 // Inicio
+// Inicio: mostrar pedidos solo con una sesión de mesero
 renderizarComanda();
-cargarProductos();
+
+if (tokenMesero && usuarioMesero?.rol === 'mesero') {
+    mostrarPanel();
+    cargarProductos();
+} else {
+    limpiarSesionMesero();
+    mostrarLogin();
+}

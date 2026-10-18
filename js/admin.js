@@ -254,7 +254,11 @@ formulario.addEventListener('submit', async evento => {
         descripcion: String(datos.get('descripcion') || '').trim(),
         precio: Number(datos.get('precio')),
         categoria: String(datos.get('categoria') || '').trim(),
-        imagen_url: String(datos.get('imagen_url') || '').trim()
+        imagen_url: String(datos.get('imagen_url') || '').trim(),
+        opciones: String(datos.get('opciones') || '')
+            .split(',')
+            .map(opcion => opcion.trim())
+            .filter(Boolean)
     };
 
     if (
@@ -311,6 +315,13 @@ function mostrarEditor(tarjeta, producto) {
             <input name="categoria" maxlength="100" required>
         </label>
 
+        <label>Opciones (separadas por comas)
+            <input
+             name="opciones"
+             maxlength="500"
+             placeholder="Coca-Cola, Colombiana, Manzana">
+        </label>
+
         <div class="admin-editor-acciones">
             <button type="submit">Guardar cambios</button>
             <button type="button" class="admin-cancelar-edicion">Cancelar</button>
@@ -320,6 +331,9 @@ function mostrarEditor(tarjeta, producto) {
     editor.elements.nombre.value = producto.nombre;
     editor.elements.precio.value = Number(producto.precio);
     editor.elements.categoria.value = producto.categoria;
+    editor.elements.opciones.value = Array.isArray(producto.opciones)
+        ? producto.opciones.join(', ')
+        : '';
 
     tarjeta.after(editor);
 
@@ -336,7 +350,11 @@ function mostrarEditor(tarjeta, producto) {
         const actualizado = {
             nombre: editor.elements.nombre.value.trim(),
             precio: Number(editor.elements.precio.value),
-            categoria: editor.elements.categoria.value.trim()
+            categoria: editor.elements.categoria.value.trim(),
+            opciones: editor.elements.opciones.value
+                .split(',')
+                .map(opcion => opcion.trim())
+                .filter(Boolean)
         };
 
         if (

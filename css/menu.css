@@ -951,3 +951,44 @@
 .pagina-menu.modo-lectura .cantidad-control {
     display: none !important;
 }
+
+
+/* Ajustes para celulares */
+@media (max-width: 760px) {
+    .pagina-menu {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: clip;
+    }
+
+    .menu-principal {
+        min-width: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .productos-grid {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .producto {
+        min-width: 0;
+        box-sizing: border-box;
+    }
+
+    .carrito-flotante {
+        position: fixed;
+        right: max(16px, env(safe-area-inset-right));
+        bottom: max(16px, env(safe-area-inset-bottom));
+        width: 56px;
+        height: 56px;
+        z-index: 100;
+    }
+
+    .panel-carrito {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+}

@@ -1,63 +1,108 @@
-/* THEO | Módulo de meseros */
-:root {
-    --mesero-naranja: #e07d05;
-    --mesero-naranja-hover: #ff981a;
-    --mesero-negro: #080808;
-    --mesero-panel: #141414;
-    --mesero-borde: #373737;
-    --mesero-blanco: #fff;
-    --mesero-gris: #aaa;
+/* THEO - Módulo de meseros */
+.mesero {
+    margin: 0;
+    min-height: 100vh;
+    background: #111;
+    color: #f5f5f5;
+    font-family: Inter, Arial, sans-serif;
 }
 
-/* Encabezado */
+.mesero *,
+.mesero *::before,
+.mesero *::after {
+    box-sizing: border-box;
+}
+
+.mesero [hidden] {
+    display: none !important;
+}
+
+/* Cabecera: mismo estilo que Admin */
 .mesero-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px;
-    padding: 24px 5%;
-    color: var(--mesero-blanco);
-    background: var(--mesero-negro);
-    border-bottom: 2px solid var(--mesero-naranja);
+    flex-wrap: wrap;
+    gap: 24px;
+    padding: 30px 6%;
+    background: #141414;
+    border-bottom: 1px solid #383838;
+}
+
+.mesero-identidad {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.mesero-logo {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 58px;
+    height: 58px;
+    border-radius: 16px;
+    background: #f28a00;
+    color: #111;
+    font-size: 35px;
+    font-weight: 900;
+}
+
+.mesero-etiqueta {
+    margin: 0 0 8px;
+    color: #f28a00;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
 }
 
 .mesero-header h1 {
     margin: 0;
-    font: 1.8rem Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    font-family: Inter, Arial, sans-serif;
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -.7px;
+    text-transform: none;
 }
 
-.mesero-header h1 span {
-    color: var(--mesero-naranja);
-}
-
-.mesero-header p {
-    margin: 5px 0 0;
-    color: #ccc;
+.mesero-identidad p:last-child {
+    margin: 8px 0 0;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 .mesero-header nav {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 10px;
 }
 
-.mesero-header nav a {
-    padding: 10px 14px;
-    color: #fff;
-    border: 1px solid #444;
-    border-radius: 8px;
-    transition: .2s;
+.mesero-header nav a,
+#cerrar-sesion-mesero {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 17px;
+    border: 1px solid #454545;
+    border-radius: 9px;
+    background: #202020;
+    color: #eee;
+    font: 700 13px Inter, Arial, sans-serif;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .2s ease;
 }
 
-.mesero-header nav a:hover {
-    color: var(--mesero-negro);
-    background: var(--mesero-naranja);
-    border-color: var(--mesero-naranja);
+.mesero-header nav a:hover,
+#cerrar-sesion-mesero:hover {
+    border-color: #f28a00;
+    background: #252525;
+    color: #f28a00;
 }
 
-/* Distribución y paneles */
+/* Distribución */
 .mesero-contenedor {
     display: grid;
     grid-template-columns: minmax(210px, .8fr) minmax(300px, 1.6fr) minmax(260px, 1fr);
@@ -74,8 +119,7 @@
 .panel-comanda {
     min-width: 0;
     padding: 20px;
-    color: #fff;
-    background: var(--mesero-panel);
+    background: #141414;
     border: 1px solid #303030;
     border-radius: 14px;
     box-shadow: 0 8px 25px #0004;
@@ -84,7 +128,6 @@
 .mesero-contenedor h2 {
     margin: 0 0 18px;
     padding-bottom: 12px;
-    color: #fff;
     border-bottom: 1px solid #333;
     font-size: 1.25rem;
     letter-spacing: .5px;
@@ -108,7 +151,8 @@
 .campo input,
 .campo select,
 .filtros input,
-.filtros select {
+.filtros select,
+.producto-opcion {
     width: 100%;
     min-width: 0;
     padding: 11px 12px;
@@ -122,9 +166,10 @@
 .campo input:focus,
 .campo select:focus,
 .filtros input:focus,
-.filtros select:focus {
-    border-color: var(--mesero-naranja);
-    outline: 1px solid var(--mesero-naranja);
+.filtros select:focus,
+.producto-opcion:focus {
+    border-color: #f28a00;
+    outline: 1px solid #f28a00;
 }
 
 .filtros {
@@ -134,7 +179,7 @@
     margin-bottom: 18px;
 }
 
-/* Tarjetas de productos */
+/* Productos */
 #lista-productos {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -142,53 +187,46 @@
     gap: 16px;
 }
 
-#lista-productos .producto-mesero {
+.producto-mesero {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
     gap: 13px;
     min-width: 0;
     min-height: 235px;
-    margin: 0;
     padding: 18px;
-    color: #fff;
     background: linear-gradient(145deg, #202020, #111);
-    border: 1px solid var(--mesero-borde);
+    border: 1px solid #373737;
     border-radius: 12px;
-    box-shadow: 0 5px 16px #0003;
-    transition: border-color .2s, transform .2s, box-shadow .2s;
+    transition: .2s ease;
 }
 
-#lista-productos .producto-mesero:hover {
+.producto-mesero:hover {
     transform: translateY(-3px);
-    border-color: var(--mesero-naranja);
-    box-shadow: 0 8px 22px #e07d051a;
+    border-color: #f28a00;
 }
 
 .producto-cabecera {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
-    align-items: center;
+    flex-wrap: wrap;
     gap: 8px;
 }
 
 .producto-etiqueta {
-    color: var(--mesero-naranja);
+    color: #f28a00;
     font-size: .68rem;
     font-weight: 800;
     letter-spacing: 1.4px;
 }
 
-#lista-productos .producto-mesero .producto-categoria {
-    color: var(--mesero-gris);
+.producto-categoria {
+    color: #aaa;
     font-size: .75rem;
     text-transform: capitalize;
 }
 
-#lista-productos .producto-mesero h3 {
+.producto-mesero h3 {
     margin: 4px 0;
-    color: #fff;
     font: 1.3rem Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
     line-height: 1.25;
     text-transform: uppercase;
@@ -199,9 +237,8 @@
     margin-top: auto;
 }
 
-#lista-productos .producto-mesero .producto-precio {
-    display: block;
-    color: var(--mesero-naranja);
+.producto-precio {
+    color: #f28a00;
     font-size: 1.35rem;
     font-weight: 900;
 }
@@ -211,18 +248,7 @@
     font-size: .8rem;
 }
 
-#lista-productos .producto-mesero .producto-opcion {
-    width: 100%;
-    min-width: 0;
-    padding: 11px;
-    color: #fff;
-    background: #292929;
-    border: 1px solid #484848;
-    border-radius: 7px;
-    font: inherit;
-}
-
-#lista-productos .producto-mesero .producto-agregar {
+.producto-agregar {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -231,33 +257,27 @@
     min-height: 45px;
     margin-top: auto;
     padding: 10px;
-    color: var(--mesero-negro);
-    background: var(--mesero-naranja);
+    color: #111;
+    background: #f28a00;
     border: 0;
     border-radius: 7px;
     font-size: .8rem;
     font-weight: 900;
-    letter-spacing: .4px;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background-color .2s, transform .2s;
 }
 
-#lista-productos .producto-mesero .producto-agregar span {
+.producto-agregar:hover {
+    background: #ff981a;
+}
+
+.producto-agregar span {
     font-size: 1.25rem;
-}
-
-#lista-productos .producto-mesero .producto-agregar:hover {
-    background: var(--mesero-naranja-hover);
-}
-
-#lista-productos .producto-mesero .producto-agregar:active {
-    transform: scale(.98);
 }
 
 .productos-vacios {
     grid-column: 1 / -1;
-    color: var(--mesero-gris);
+    color: #aaa;
 }
 
 /* Comanda */
@@ -266,13 +286,8 @@
     top: 15px;
 }
 
-#lista-comanda,
-#lista-comanda p {
-    color: #fff;
-}
-
 #lista-comanda>p {
-    color: var(--mesero-gris);
+    color: #aaa;
 }
 
 .item-comanda {
@@ -280,7 +295,6 @@
     justify-content: space-between;
     gap: 12px;
     padding: 13px 0;
-    color: #fff;
     border-bottom: 1px solid #333;
 }
 
@@ -291,14 +305,13 @@
 
 .item-comanda-info strong {
     display: block;
-    color: #fff;
     overflow-wrap: anywhere;
 }
 
 .item-comanda-info small {
     display: block;
     margin-top: 4px;
-    color: var(--mesero-gris);
+    color: #aaa;
 }
 
 .item-comanda-controles {
@@ -323,9 +336,13 @@
     color: #ff8a8a;
 }
 
-.item-comanda-subtotal {
-    color: var(--mesero-naranja);
+.item-comanda-subtotal,
+#total-comanda {
+    color: #f28a00;
     font-weight: 700;
+}
+
+.item-comanda-subtotal {
     white-space: nowrap;
 }
 
@@ -335,13 +352,8 @@
     gap: 12px;
     margin: 20px 0;
     padding-top: 15px;
-    color: #fff;
     border-top: 2px solid #333;
     font-size: 1.15rem;
-}
-
-#total-comanda {
-    color: var(--mesero-naranja);
 }
 
 #vaciar-comanda,
@@ -349,12 +361,10 @@
     width: 100%;
     margin-top: 9px;
     padding: 11px 13px;
-    border: 0;
     border-radius: 8px;
     font: inherit;
     font-weight: 800;
     cursor: pointer;
-    transition: background-color .2s;
 }
 
 #vaciar-comanda {
@@ -363,18 +373,15 @@
     border: 1px solid #444;
 }
 
-#vaciar-comanda:hover {
-    background: #383838;
-}
-
 #crear-pedido {
-    color: var(--mesero-negro);
-    background: var(--mesero-naranja);
+    color: #111;
+    background: #f28a00;
+    border: 0;
     text-transform: uppercase;
 }
 
 #crear-pedido:hover {
-    background: var(--mesero-naranja-hover);
+    background: #ff981a;
 }
 
 #crear-pedido:disabled {
@@ -383,7 +390,6 @@
 }
 
 #mensaje-mesero {
-    color: #fff;
     font-size: .9rem;
     line-height: 1.4;
     overflow-wrap: anywhere;
@@ -397,7 +403,7 @@
     color: #4ade80;
 }
 
-/* Adaptación a pantallas */
+/* Adaptación a pantallas pequeñas */
 @media (max-width: 1050px) {
     .mesero-contenedor {
         grid-template-columns: minmax(220px, .8fr) minmax(300px, 1.4fr);
@@ -413,7 +419,38 @@
     .mesero-header {
         align-items: flex-start;
         flex-direction: column;
-        padding: 18px;
+        padding: 24px 5%;
+    }
+
+    .mesero-identidad {
+        align-items: flex-start;
+        gap: 13px;
+    }
+
+    .mesero-logo {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+        font-size: 28px;
+    }
+
+    .mesero-etiqueta {
+        font-size: 10px;
+        letter-spacing: 1.3px;
+    }
+
+    .mesero-header h1 {
+        font-size: 25px;
+    }
+
+    .mesero-header nav {
+        width: 100%;
+    }
+
+    .mesero-header nav a,
+    #cerrar-sesion-mesero {
+        flex: 1;
+        text-align: center;
     }
 
     .mesero-contenedor {
@@ -429,4 +466,24 @@
     #lista-productos {
         grid-template-columns: 1fr;
     }
+}
+
+/* Ajustar separación de los campos del login de meseros */
+#formulario-login-mesero {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+#formulario-login-mesero .campo-login {
+    margin: 0;
+}
+
+#formulario-login-mesero .campo-login label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+#formulario-login-mesero .campo-login__control {
+    margin-top: 0;
 }

@@ -4,92 +4,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THEO | Módulo de Meseros</title>
+    <meta name="theme-color" content="#111111">
+    <title>Meseros | THEO Food and Drinks</title>
 
     <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/admin.css">
     <link rel="stylesheet" href="./css/mesero.css">
+    <script src="./js/mesero.js" defer></script>
 </head>
 
-<body>
+<body class="mesero">
 
-    <header class="mesero-header">
-        <div>
-            <h1>THEO <span>Food and Drinks</span></h1>
-            <p>Módulo de meseros</p>
+    <!-- INICIO DE SESIÓN -->
+    <section id="pantalla-login-mesero" class="pantalla-login">
+        <div class="login-decoracion login-decoracion--uno"></div>
+        <div class="login-decoracion login-decoracion--dos"></div>
+
+        <div class="login-contenedor">
+            <div class="login-marca">
+                <div class="login-icono" aria-hidden="true">T</div>
+                <p class="login-nombre">THEO</p>
+                <p class="login-eslogan">FOOD AND DRINKS</p>
+            </div>
+
+            <div class="login-tarjeta">
+                <div class="login-encabezado">
+                    <span class="login-etiqueta">ACCESO SEGURO</span>
+                    <h1>Panel de meseros</h1>
+                    <p>Ingresa para gestionar los pedidos de las mesas.</p>
+                </div>
+
+                <form id="formulario-login-mesero">
+                    <div class="campo-login">
+                        <label for="usuario-mesero">Usuario</label>
+                        <div class="campo-login__control">
+                            <input id="usuario-mesero" name="usuario" type="text" placeholder="Ingresa tu usuario"
+                                autocomplete="username" required>
+                        </div>
+                    </div>
+
+                    <div class="campo-login">
+                        <label for="password-mesero">Contraseña</label>
+                        <div class="campo-login__control">
+                            <input id="password-mesero" name="password" type="password"
+                                placeholder="Ingresa tu contraseña" autocomplete="current-password" required>
+                            <button type="button" id="mostrar-password-mesero" class="boton-mostrar-password"
+                                aria-label="Mostrar contraseña">Ver</button>
+                        </div>
+                    </div>
+
+                    <p id="mensaje-login-mesero" class="mensaje-login" role="status" aria-live="polite" hidden></p>
+
+                    <button type="submit" id="boton-login-mesero" class="boton-login">
+                        <span>Iniciar sesión</span>
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </form>
+
+                <div class="login-seguridad">
+                    <span aria-hidden="true">●</span>
+                    Acceso exclusivo para meseros
+                </div>
+            </div>
+
+            <a href="./index.html" class="login-volver">← Volver al sitio</a>
+            <p class="login-pie">THEO FOOD AND DRINKS · PANEL INTERNO</p>
         </div>
+    </section>
 
-        <nav>
-            <a href="./admin.html">Administración</a>
-            <a href="./pedidos.html">Ver pedidos</a>
-        </nav>
-    </header>
+    <!-- MÓDULO DE PEDIDOS: OCULTO HASTA INICIAR SESIÓN -->
+    <div id="panel-mesero" hidden>
 
-    <main class="mesero-contenedor">
-
-        <section class="panel-mesa">
-            <h2>Nuevo pedido</h2>
-
-            <div class="campo">
-                <label for="numero-mesa">Número de mesa</label>
-                <input type="number" id="numero-mesa" min="1" placeholder="Ej. 4" required>
+        <header class="mesero-header">
+            <div class="mesero-identidad">
+                <span class="mesero-logo" aria-hidden="true">T</span>
+                <div>
+                    <p class="mesero-etiqueta">THEO FOOD AND DRINKS</p>
+                    <h1>Panel de meseros</h1>
+                    <p id="nombre-sesion-mesero">Gestión de pedidos en mesa</p>
+                </div>
             </div>
 
-            <div class="campo">
-                <label for="nombre-cliente">Nombre del cliente (opcional)</label>
-                <input type="text" id="nombre-cliente" placeholder="Nombre del cliente">
-            </div>
+            <nav>
+                <a href="./admin.html">Administración</a>
+                <a href="./pedidos.html">Ver pedidos</a>
+                <button type="button" id="cerrar-sesion-mesero">
+                    Cerrar sesión
+                </button>
+            </nav>
+        </header>
 
-            <div class="campo">
-                <label for="metodo-pago">Método de pago</label>
-                <select id="metodo-pago">
-                    <option value="Efectivo">Efectivo</option>
-                    <option value="Transferencia">Transferencia</option>
-                </select>
-            </div>
-        </section>
+        <main class="mesero-contenedor">
 
-        <section class="panel-productos">
-            <h2>Menú</h2>
+            <section class="panel-mesa">
+                <h2>Nuevo pedido</h2>
 
-            <div class="filtros">
-                <input type="search" id="buscar-producto" placeholder="Buscar producto...">
+                <div class="campo">
+                    <label for="numero-mesa">Número de mesa</label>
+                    <input type="number" id="numero-mesa" min="1" placeholder="Ej. 4" required>
+                </div>
 
-                <select id="filtro-categoria">
-                    <option value="">Todas las categorías</option>
-                </select>
-            </div>
+                <div class="campo">
+                    <label for="nombre-cliente">Nombre del cliente (opcional)</label>
+                    <input type="text" id="nombre-cliente" placeholder="Nombre del cliente">
+                </div>
 
-            <div id="lista-productos">
-                <p>Cargando productos...</p>
-            </div>
-        </section>
+                <div class="campo">
+                    <label for="metodo-pago">Método de pago</label>
+                    <select id="metodo-pago">
+                        <option value="Efectivo">Efectivo</option>
+                        <option value="Transferencia">Transferencia</option>
+                    </select>
+                </div>
+            </section>
 
-        <aside class="panel-comanda">
-            <h2>Comanda</h2>
+            <section class="panel-productos">
+                <h2>Menú</h2>
 
-            <div id="lista-comanda">
-                <p>Aún no has agregado productos.</p>
-            </div>
+                <div class="filtros">
+                    <input type="search" id="buscar-producto" placeholder="Buscar producto...">
 
-            <div class="comanda-total">
-                <span>Total</span>
-                <strong id="total-comanda">$0</strong>
-            </div>
+                    <select id="filtro-categoria">
+                        <option value="">Todas las categorías</option>
+                    </select>
+                </div>
 
-            <button type="button" id="vaciar-comanda">
-                Vaciar comanda
-            </button>
+                <div id="lista-productos">
+                    <p>Cargando productos...</p>
+                </div>
+            </section>
 
-            <button type="button" id="crear-pedido">
-                Registrar pedido
-            </button>
+            <aside class="panel-comanda">
+                <h2>Comanda</h2>
 
-            <p id="mensaje-mesero" role="status"></p>
-        </aside>
+                <div id="lista-comanda">
+                    <p>Aún no has agregado productos.</p>
+                </div>
 
-    </main>
+                <div class="comanda-total">
+                    <span>Total</span>
+                    <strong id="total-comanda">$0</strong>
+                </div>
 
-    <script src="./js/mesero.js"></script>
+                <button type="button" id="vaciar-comanda">
+                    Vaciar comanda
+                </button>
+
+                <button type="button" id="crear-pedido">
+                    Registrar pedido
+                </button>
+
+                <p id="mensaje-mesero" role="status" aria-live="polite"></p>
+            </aside>
+
+        </main>
+    </div>
 </body>
 
 </html>

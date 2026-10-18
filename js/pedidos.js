@@ -257,13 +257,20 @@ function renderizarPedidos() {
             <div class="pedido-card__cliente">
                 <div><strong>Cliente:</strong> ${escaparHTML(pedido.cliente_nombre)}</div>
                 <div><strong>Teléfono:</strong> ${escaparHTML(pedido.cliente_telefono || 'No indicado')}</div>
-                <div><strong>Dirección:</strong> ${escaparHTML(pedido.cliente_direccion || 'No indicada')}</div>
-                <div><strong>Pago:</strong> ${escaparHTML(pedido.metodo_pago)}</div>
+
+    ${pedido.tipo_pedido === 'Mesa' || pedido.tipo_pedido === 'mesa'
+            ? `<div><strong>Tipo:</strong> <span class="pedido-tipo pedido-tipo--mesa">EN MESA</span></div>
+           <div><strong>Número de mesa:</strong> ${escaparHTML(pedido.numero_mesa || 'No indicado')}</div>`
+            : `<div><strong>Tipo:</strong> <span class="pedido-tipo pedido-tipo--domicilio">DOMICILIO</span></div>
+           <div><strong>Dirección:</strong> ${escaparHTML(pedido.cliente_direccion || 'No indicada')}</div>`
+        }
+
+            <div><strong>Pago:</strong> ${escaparHTML(pedido.metodo_pago)}</div>
                 <div><strong>Fecha:</strong> ${escaparHTML(
-        pedido.creado_en
-            ? new Date(pedido.creado_en).toLocaleString('es-CO')
-            : 'No disponible'
-    )}</div>
+            pedido.creado_en
+                ? new Date(pedido.creado_en).toLocaleString('es-CO')
+                : 'No disponible'
+        )}</div>
                 <div><strong>Nota:</strong> ${escaparHTML(pedido.nota || 'Sin nota')}</div>
             </div>
 
@@ -274,8 +281,8 @@ function renderizarPedidos() {
                             ${escaparHTML(producto.cantidad)} x
                             ${escaparHTML(producto.nombre)}
                             ${producto.opcion
-            ? ` — ${escaparHTML(producto.opcion)}`
-            : ''}
+                ? ` — ${escaparHTML(producto.opcion)}`
+                : ''}
                         </span>
                         <strong>${formatoPrecio.format(Number(producto.subtotal) || 0)}</strong>
                     </div>
