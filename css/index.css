@@ -409,6 +409,23 @@
     width: 1.05rem;
 }
 
+/* Alinear dirección y enlaces de contacto */
+.pie-pagina__columna p a {
+    display: inline;
+    width: auto;
+    margin: 0;
+    line-height: inherit;
+    transform: none;
+}
+
+.pie-pagina__columna p a:hover {
+    transform: none;
+}
+
+.pie-pagina__columna p i {
+    vertical-align: middle;
+}
+
 .pie-pagina__inferior {
     border-top: 1px solid rgba(255, 255, 255, .11);
     color: var(--theo-gray);
