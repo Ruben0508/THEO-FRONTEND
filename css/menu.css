@@ -467,7 +467,15 @@
 
 @media (max-width: 760px) {
     .menu-encabezado {
-        padding: .75rem 1.15rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        position: relative;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 0.75rem 1rem;
     }
 
     .carrito-flotante {
@@ -480,9 +488,18 @@
         width: 100%;
     }
 
+    .menu-marca {
+        display: flex;
+        align-items: center;
+        flex-shrink: 0;
+        gap: 0.5rem;
+    }
+
     .menu-marca img {
-        height: 46px;
+        display: block;
         width: 46px;
+        height: 46px;
+        object-fit: contain;
     }
 
     .menu-marca span {
@@ -490,8 +507,16 @@
     }
 
     .menu-volver {
-        font-size: .61rem;
-        padding: .65rem .85rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        white-space: nowrap;
+        box-sizing: border-box;
+        padding: 0.65rem 0.75rem;
+        font-size: 0.65rem;
+        position: relative;
+        z-index: 6;
     }
 
     .menu-principal {
@@ -952,43 +977,101 @@
     display: none !important;
 }
 
-
-/* Ajustes para celulares */
+/* Ajustes responsive para celulares */
 @media (max-width: 760px) {
+
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
     .pagina-menu {
         width: 100%;
         max-width: 100%;
-        overflow-x: clip;
+        overflow-x: hidden;
+    }
+
+    .menu-encabezado {
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        padding: 0.75rem 1rem;
+    }
+
+    .menu-volver {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        max-width: 100%;
+        box-sizing: border-box;
+        white-space: nowrap;
+        padding: 0.65rem 0.75rem;
+        font-size: 0.65rem;
     }
 
     .menu-principal {
-        min-width: 0;
         width: 100%;
+        max-width: 100%;
+        min-width: 0;
         box-sizing: border-box;
+        padding: 2.5rem 1rem 4rem;
+    }
+
+    .menu-intro {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .menu-intro__imagen {
+        right: 0;
+        max-width: 75%;
+        object-fit: contain;
+    }
+
+    .menu-intro h1 {
+        max-width: 100%;
+        font-size: clamp(2.8rem, 12vw, 4.2rem);
+        overflow-wrap: break-word;
+    }
+
+    .menu-intro>p:last-child {
+        max-width: 100%;
+    }
+
+    .filtros {
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .filtros__lista {
+        margin: 0 -1rem;
+        padding-right: 1rem;
+        padding-left: 1rem;
+        overflow-x: auto;
+    }
+
+    .productos-seccion__cabecera {
+        gap: 0.5rem;
+        min-width: 0;
     }
 
     .productos-grid {
         width: 100%;
         min-width: 0;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .producto {
         min-width: 0;
         box-sizing: border-box;
     }
+}
 
-    .carrito-flotante {
-        position: fixed;
-        right: max(16px, env(safe-area-inset-right));
-        bottom: max(16px, env(safe-area-inset-bottom));
-        width: 56px;
-        height: 56px;
-        z-index: 100;
-    }
-
-    .panel-carrito {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
+@media (max-width: 360px) {
+    .productos-grid {
+        grid-template-columns: 1fr;
     }
 }
