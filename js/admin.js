@@ -315,6 +315,14 @@ function mostrarEditor(tarjeta, producto) {
             <input name="categoria" maxlength="100" required>
         </label>
 
+        <label>Descripción
+    <textarea
+        name="descripcion"
+        maxlength="1000"
+        placeholder="Ingredientes o características del producto"
+    ></textarea>
+</label>
+
         <label>Opciones (separadas por comas)
             <input
              name="opciones"
@@ -331,6 +339,7 @@ function mostrarEditor(tarjeta, producto) {
     editor.elements.nombre.value = producto.nombre;
     editor.elements.precio.value = Number(producto.precio);
     editor.elements.categoria.value = producto.categoria;
+    editor.elements.descripcion.value = producto.descripcion || '';
     editor.elements.opciones.value = Array.isArray(producto.opciones)
         ? producto.opciones.join(', ')
         : '';
@@ -351,6 +360,7 @@ function mostrarEditor(tarjeta, producto) {
             nombre: editor.elements.nombre.value.trim(),
             precio: Number(editor.elements.precio.value),
             categoria: editor.elements.categoria.value.trim(),
+            descripcion: editor.elements.descripcion.value.trim(),
             opciones: editor.elements.opciones.value
                 .split(',')
                 .map(opcion => opcion.trim())
