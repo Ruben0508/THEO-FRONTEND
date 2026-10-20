@@ -437,7 +437,9 @@ ${nota || 'Sin nota'}
 `;
 
     const urlWhatsApp =
-      `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensaje)}`;
+      `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
+    console.log('Mensaje completo:', mensaje);
+    console.log('URL de WhatsApp:', urlWhatsApp);
 
     if (ventanaWhatsApp) {
       ventanaWhatsApp.location.href = urlWhatsApp;
