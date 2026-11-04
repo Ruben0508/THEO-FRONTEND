@@ -258,14 +258,40 @@ function renderizarPedidos() {
                 <div><strong>Cliente:</strong> ${escaparHTML(pedido.cliente_nombre)}</div>
                 <div><strong>Teléfono:</strong> ${escaparHTML(pedido.cliente_telefono || 'No indicado')}</div>
 
-    ${pedido.tipo_pedido === 'Mesa' || pedido.tipo_pedido === 'mesa'
-            ? `<div><strong>Tipo:</strong> <span class="pedido-tipo pedido-tipo--mesa">EN MESA</span></div>
-           <div><strong>Número de mesa:</strong> ${escaparHTML(pedido.numero_mesa || 'No indicado')}</div>`
-            : `<div><strong>Tipo:</strong> <span class="pedido-tipo pedido-tipo--domicilio">DOMICILIO</span></div>
-           <div><strong>Dirección:</strong> ${escaparHTML(pedido.cliente_direccion || 'No indicada')}</div>`
+    ${pedido.tipo_pedido?.toLowerCase() === 'mesa'
+            ? `
+        <div>
+            <strong>Tipo:</strong>
+            <span class="pedido-tipo pedido-tipo--mesa">EN MESA</span>
+        </div>
+        <div>
+            <strong>Número de mesa:</strong>
+            ${escaparHTML(pedido.numero_mesa || 'No indicado')}
+        </div>
+    `
+            : pedido.tipo_pedido?.toLowerCase() === 'recoger'
+                ? `
+            <div>
+                <strong>Tipo:</strong>
+                <span class="pedido-tipo pedido-tipo--recoger">PARA RECOGER</span>
+            </div>
+        `
+                : `
+            <div>
+                <strong>Tipo:</strong>
+                <span class="pedido-tipo pedido-tipo--domicilio">DOMICILIO</span>
+            </div>
+            <div>
+                <strong>Dirección:</strong>
+                ${escaparHTML(pedido.cliente_direccion || 'No indicada')}
+            </div>
+        `
         }
 
-            <div><strong>Pago:</strong> ${escaparHTML(pedido.metodo_pago)}</div>
+            ${pedido.metodo_pago
+            ? `<div><strong>Pago:</strong> ${escaparHTML(pedido.metodo_pago)}</div>`
+            : ''
+        }
                 <div><strong>Fecha:</strong> ${escaparHTML(
             pedido.creado_en
                 ? new Date(pedido.creado_en).toLocaleString('es-CO')

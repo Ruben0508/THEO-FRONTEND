@@ -487,3 +487,180 @@
 #formulario-login-mesero .campo-login__control {
     margin-top: 0;
 }
+
+/* ========================================
+   THEO FOOD AND DRINKS - COMANDA
+======================================== */
+
+.item-comanda {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px;
+    margin-bottom: 14px;
+    background: #181818;
+    border: 1px solid #303030;
+    border-radius: 12px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.item-comanda:hover {
+    border-color: #484848;
+    background: #1d1d1d;
+}
+
+.item-comanda-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    gap: 8px;
+}
+
+.item-comanda-info>strong {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.item-comanda-info>small {
+    color: #a5a5a5;
+    font-size: 13px;
+}
+
+/* Etiqueta de observaciones */
+.observacion-producto-label {
+    display: block;
+    margin-top: 8px;
+    color: #eeeeee;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Campo de observaciones */
+.observacion-producto {
+    display: block;
+    width: 100%;
+    min-height: 64px;
+    padding: 11px 12px;
+    box-sizing: border-box;
+    resize: vertical;
+
+    color: #f5f5f5;
+    background: #101010;
+    border: 1px solid #383838;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.observacion-producto::placeholder {
+    color: #777777;
+}
+
+.observacion-producto:focus {
+    border-color: #FF9500;
+    box-shadow: 0 0 0 3px rgb(255 149 0 / 18%);
+    outline: none;
+}
+
+/* Controles de cantidad */
+.item-comanda-controles {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.item-comanda-controles button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 34px;
+    min-height: 34px;
+    padding: 6px 10px;
+
+    color: #ffffff;
+    background: #292929;
+    border: 1px solid #414141;
+    border-radius: 7px;
+
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.item-comanda-controles button:hover {
+    background: #383838;
+    border-color: #666666;
+}
+
+.item-comanda-controles>span {
+    min-width: 20px;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Botón eliminar */
+.item-comanda-controles button.eliminar-item {
+    margin-left: 4px;
+    color: #ff7773;
+    background: transparent;
+    border-color: #63302e;
+    font-size: 12px;
+}
+
+.item-comanda-controles button.eliminar-item:hover {
+    color: #ffffff;
+    background: #b8322e;
+    border-color: #b8322e;
+}
+
+/* Subtotal del producto */
+.item-comanda-subtotal {
+    flex-shrink: 0;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    white-space: nowrap;
+    padding-top: 2px;
+}
+
+/* Adaptación a móviles */
+@media (max-width: 480px) {
+    .item-comanda {
+        gap: 10px;
+        padding: 14px;
+    }
+
+    .item-comanda-info>strong {
+        font-size: 14px;
+    }
+
+    .item-comanda-subtotal {
+        font-size: 13px;
+    }
+
+    .item-comanda-controles {
+        gap: 6px;
+    }
+
+    .item-comanda-controles button {
+        min-width: 32px;
+        min-height: 32px;
+    }
+}

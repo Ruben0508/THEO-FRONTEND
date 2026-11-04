@@ -320,13 +320,15 @@ function agregarProducto(id) {
             nombre: producto.nombre,
             precio: producto.precio,
             opcion,
-            cantidad: 1
+            cantidad: 1,
+            observacion: ''
         });
     }
 
     mostrarMensaje('');
     renderizarComanda();
 }
+
 
 // Mostrar la comanda y calcular el total
 function renderizarComanda() {
@@ -343,6 +345,21 @@ function renderizarComanda() {
                 : ''}
 
                     <small>${formatoPrecio(item.precio)} por unidad</small>
+
+                    <label
+                        class="observacion-producto-label"
+                        for="observacion-${indice}">
+                        Observaciones
+                    </label>
+
+                    <textarea
+                        id="observacion-${indice}"
+                        class="observacion-producto"
+                        data-observacion="${indice}"
+                        maxlength="300"
+                        rows="2"
+                        placeholder="Ej. Sin cebolla, sin salsa..."
+                    >${escaparHTML(item.observacion || '')}</textarea>
 
                     <div class="item-comanda-controles">
                         <button type="button"
@@ -386,6 +403,7 @@ function renderizarComanda() {
 // Controlar cantidades y eliminar productos
 listaComanda.addEventListener('click', evento => {
     const boton = evento.target.closest('button[data-accion]');
+
     if (!boton) return;
 
     const indice = Number(boton.dataset.indice);
@@ -397,10 +415,15 @@ listaComanda.addEventListener('click', evento => {
         case 'mas':
             item.cantidad++;
             break;
+
         case 'menos':
             item.cantidad--;
-            if (item.cantidad <= 0) comanda.splice(indice, 1);
+
+            if (item.cantidad <= 0) {
+                comanda.splice(indice, 1);
+            }
             break;
+
         case 'eliminar':
             comanda.splice(indice, 1);
             break;
@@ -409,20 +432,38 @@ listaComanda.addEventListener('click', evento => {
     renderizarComanda();
 });
 
+
+// Guardar las observaciones mientras se escribe
+listaComanda.addEventListener('input', evento => {
+    if (!evento.target.classList.contains('observacion-producto')) {
+        return;
+    }
+
+    const indice = Number(evento.target.dataset.observacion);
+
+    if (comanda[indice]) {
+        comanda[indice].observacion = evento.target.value;
+    }
+});
+
+
 // Agregar productos desde las tarjetas
 listaProductos.addEventListener('click', evento => {
     const boton = evento.target.closest('button[data-agregar]');
+
     if (!boton) return;
 
     agregarProducto(Number(boton.dataset.agregar));
 });
 
-// Buscar y filtrar
+
+// Buscar y filtrar productos
 document.getElementById('buscar-producto')
     .addEventListener('input', renderizarProductos);
 
 document.getElementById('filtro-categoria')
     .addEventListener('change', renderizarProductos);
+
 
 // Vaciar la comanda
 document.getElementById('vaciar-comanda').addEventListener('click', () => {
@@ -435,33 +476,43 @@ document.getElementById('vaciar-comanda').addEventListener('click', () => {
     }
 });
 
+
 // Registrar el pedido en el backend
 botonRegistrar.addEventListener('click', async () => {
-    const numeroMesa = Number(document.getElementById('numero-mesa').value);
+    const numeroMesa = Number(
+        document.getElementById('numero-mesa').value
+    );
+
     const nombreIngresado = document.getElementById('nombre-cliente')
         .value.trim();
-    const metodoPago = document.getElementById('metodo-pago').value;
 
     if (!Number.isInteger(numeroMesa) || numeroMesa < 1) {
-        mostrarMensaje('Ingresa un número de mesa válido.', 'mensaje-error');
+        mostrarMensaje(
+            'Ingresa un número de mesa válido.',
+            'mensaje-error'
+        );
         return;
     }
 
     if (!comanda.length) {
-        mostrarMensaje('Agrega al menos un producto.', 'mensaje-error');
+        mostrarMensaje(
+            'Agrega al menos un producto.',
+            'mensaje-error'
+        );
         return;
     }
 
     const pedido = {
-        cliente_nombre: nombreIngresado || `Mesa ${numeroMesa} `,
+        cliente_nombre: nombreIngresado || `Mesa ${numeroMesa}`,
         cliente_direccion: '',
-        metodo_pago: metodoPago,
         tipo_pedido: 'Mesa',
         numero_mesa: numeroMesa,
+
         productos: comanda.map(item => ({
             producto_id: item.id,
             cantidad: item.cantidad,
-            opcion: item.opcion
+            opcion: item.opcion,
+            observacion: item.observacion || ''
         }))
     };
 
@@ -471,7 +522,9 @@ botonRegistrar.addEventListener('click', async () => {
 
     try {
         if (!tokenMesero || usuarioMesero?.rol !== 'mesero') {
-            cerrarSesionMesero('Inicia sesión nuevamente para registrar pedidos.');
+            cerrarSesionMesero(
+                'Inicia sesión nuevamente para registrar pedidos.'
+            );
             return;
         }
 
@@ -485,7 +538,9 @@ botonRegistrar.addEventListener('click', async () => {
         });
 
         if (respuesta.status === 401 || respuesta.status === 403) {
-            cerrarSesionMesero('Tu sesión venció o no tienes permisos. Inicia sesión nuevamente.');
+            cerrarSesionMesero(
+                'Tu sesión venció o no tienes permisos. Inicia sesión nuevamente.'
+            );
             return;
         }
 
@@ -493,7 +548,8 @@ botonRegistrar.addEventListener('click', async () => {
 
         if (!respuesta.ok) {
             throw new Error(
-                resultado.error || resultado.mensaje ||
+                resultado.error ||
+                resultado.mensaje ||
                 'El servidor no pudo registrar el pedido.'
             );
         }
@@ -510,16 +566,18 @@ botonRegistrar.addEventListener('click', async () => {
             `¡Pedido de la mesa ${mesaRegistrada} registrado correctamente! Ya puedes consultarlo en Ver pedidos.`,
             'mensaje-exito'
         );
+
     } catch (error) {
         console.error('Error al registrar pedido:', error);
         mostrarMensaje(error.message, 'mensaje-error');
+
     } finally {
         botonRegistrar.textContent = 'Registrar pedido';
         botonRegistrar.disabled = comanda.length === 0;
     }
 });
 
-// Inicio
+
 // Inicio: mostrar pedidos solo con una sesión de mesero
 renderizarComanda();
 

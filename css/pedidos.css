@@ -670,3 +670,8 @@
         width: 100%;
     }
 }
+
+.pedido-tipo--recoger {
+    color: #FF9500;
+    font-weight: 800;
+}

@@ -1075,3 +1075,139 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* ========================================
+   THEO - SELECCIÓN DEL TIPO DE PEDIDO
+======================================== */
+
+/* Respetar los elementos ocultos */
+[hidden] {
+    display: none !important;
+}
+
+/* Contenedor de las dos opciones */
+.opciones-entrega {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 28px;
+}
+
+/* Tarjetas de modalidad */
+.opcion-entrega {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    min-height: 190px;
+    padding: 24px;
+
+    color: #ffffff;
+    background: #1b1b1b;
+    border: 1px solid #383838;
+    border-radius: 12px;
+
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.opcion-entrega:hover {
+    background: #242424;
+    border-color: #ff9500;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgb(255 149 0 / 10%);
+}
+
+.opcion-entrega:focus-visible {
+    outline: 2px solid #ff9500;
+    outline-offset: 4px;
+}
+
+/* Iconos */
+.opcion-entrega__icono {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+
+    color: #ff9500;
+    background: rgb(255 149 0 / 12%);
+    border: 1px solid rgb(255 149 0 / 30%);
+    border-radius: 10px;
+
+    font-size: 23px;
+}
+
+.opcion-entrega strong {
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+}
+
+.opcion-entrega small {
+    color: #a5a5a5;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Botón para volver */
+.formulario-pedido__volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 24px;
+    padding: 9px 14px;
+
+    color: #ff9500;
+    background: transparent;
+    border: 1px solid #704509;
+    border-radius: 7px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.formulario-pedido__volver:hover {
+    color: #111111;
+    background: #ff9500;
+    border-color: #ff9500;
+}
+
+/* Adaptación a móviles */
+@media (max-width: 600px) {
+    .opciones-entrega {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 20px;
+    }
+
+    .opcion-entrega {
+        min-height: auto;
+        padding: 19px;
+        gap: 9px;
+    }
+
+    .opcion-entrega__icono {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+    }
+
+    .opcion-entrega strong {
+        font-size: 15px;
+    }
+}

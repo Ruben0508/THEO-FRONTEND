@@ -23,6 +23,16 @@ const continuarPedido = document.querySelector('#continuar-pedido');
 const formularioPedido = document.querySelector('#formulario-pedido');
 const cerrarFormulario = document.querySelector('#cerrar-formulario');
 const formPedido = document.querySelector('#form-pedido');
+// Elementos para seleccionar el tipo de pedido
+const seleccionTipoPedido = document.querySelector('#seleccion-tipo-pedido');
+const datosPedido = document.querySelector('#datos-pedido');
+const camposDomicilio = document.querySelector('#campos-domicilio');
+const camposExtraDomicilio = document.querySelector('#campos-extra-domicilio');
+const botonesTipoPedido = document.querySelectorAll('[data-tipo-pedido]');
+const volverTipoPedido = document.querySelector('#volver-tipo-pedido');
+const direccionCliente = document.querySelector('#direccion-cliente');
+const metodoPago = document.querySelector('#metodo-pago');
+let tipoPedidoSeleccionado = '';
 const numeroWhatsApp = '573156164804';
 
 
@@ -331,6 +341,7 @@ cerrarCarrito.addEventListener('click', () => {
   panelCarrito.setAttribute('aria-hidden', 'true');
 });
 
+// Abrir selección del tipo de pedido
 continuarPedido.addEventListener('click', () => {
   if (!carrito.length) {
     aviso.textContent = 'Agrega al menos un producto al carrito.';
@@ -346,13 +357,61 @@ continuarPedido.addEventListener('click', () => {
   panelCarrito.classList.remove('abierto');
   panelCarrito.setAttribute('aria-hidden', 'true');
 
+  seleccionTipoPedido.hidden = false;
+  datosPedido.hidden = true;
+
   formularioPedido.classList.add('abierto');
   formularioPedido.setAttribute('aria-hidden', 'false');
+});
+
+
+// Elegir domicilio o recoger
+botonesTipoPedido.forEach(boton => {
+  boton.addEventListener('click', () => {
+    tipoPedidoSeleccionado = boton.dataset.tipoPedido;
+
+    seleccionTipoPedido.hidden = true;
+    datosPedido.hidden = false;
+
+    const esDomicilio = tipoPedidoSeleccionado === 'Domicilio';
+
+    camposDomicilio.hidden = !esDomicilio;
+    camposExtraDomicilio.hidden = !esDomicilio;
+
+    direccionCliente.required = esDomicilio;
+    metodoPago.required = esDomicilio;
+
+    if (!esDomicilio) {
+      direccionCliente.value = '';
+      metodoPago.value = '';
+      document.querySelector('#nota-pedido').value = '';
+    }
+  });
+});
+
+
+// Volver a seleccionar la modalidad
+volverTipoPedido.addEventListener('click', () => {
+  datosPedido.hidden = true;
+  seleccionTipoPedido.hidden = false;
 });
 
 cerrarFormulario.addEventListener('click', () => {
   formularioPedido.classList.remove('abierto');
   formularioPedido.setAttribute('aria-hidden', 'true');
+
+  seleccionTipoPedido.hidden = false;
+  datosPedido.hidden = true;
+
+  tipoPedidoSeleccionado = '';
+}); cerrarFormulario.addEventListener('click', () => {
+  formularioPedido.classList.remove('abierto');
+  formularioPedido.setAttribute('aria-hidden', 'true');
+
+  seleccionTipoPedido.hidden = false;
+  datosPedido.hidden = true;
+
+  tipoPedidoSeleccionado = '';
 });
 
 
@@ -365,46 +424,60 @@ formPedido.addEventListener('submit', async (evento) => {
     return;
   }
 
+  if (!tipoPedidoSeleccionado) {
+    aviso.textContent = 'Selecciona cómo deseas recibir tu pedido.';
+    aviso.classList.add('visible');
+    return;
+  }
+
   const nombre = document.querySelector('#nombre-cliente').value.trim();
-  const direccion = document.querySelector('#direccion-cliente').value.trim();
+  const direccion = direccionCliente.value.trim();
   const telefono = document.querySelector('#telefono-cliente').value.trim();
-  const metodoPago = document.querySelector('#metodo-pago').value;
+
+  const pagoSeleccionado = metodoPago.value;
   const nota = document.querySelector('#nota-pedido').value.trim();
 
-  // Abrir una pestaña para WhatsApp antes de esperar la respuesta
-  const ventanaWhatsApp = window.open('about:blank', '_blank');
+  const esDomicilio = tipoPedidoSeleccionado === 'Domicilio';
 
+  // Abrir una ventana inmediatamente para evitar bloqueos del navegador
+  const ventanaWhatsApp = window.open('', '_blank');
   try {
     aviso.textContent = 'Registrando tu pedido...';
     aviso.classList.add('visible');
 
-    // Guardar el pedido en PostgreSQL a través del backend
-    const respuesta = await fetch('https://theo-backend-1j17.onrender.com/api/pedidos', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        cliente_nombre: nombre,
-        cliente_direccion: direccion,
-        cliente_telefono: telefono,
-        metodo_pago: metodoPago,
-        nota: nota,
-        tipo_pedido: 'Domicilio',
-        productos: carrito.map(item => ({
-          producto_id: item.id,
-          cantidad: item.cantidad,
-          opcion: item.opcion || ''
-        }))
-      })
-    });
+    const respuesta = await fetch(
+      'https://theo-backend-1j17.onrender.com/api/pedidos',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          cliente_nombre: nombre,
+          cliente_direccion: esDomicilio ? direccion : '',
+          cliente_telefono: telefono,
+          metodo_pago: esDomicilio ? pagoSeleccionado : null,
+          nota: esDomicilio ? nota : '',
+          tipo_pedido: tipoPedidoSeleccionado,
+
+          productos: carrito.map(item => ({
+            producto_id: item.id,
+            cantidad: item.cantidad,
+            opcion: item.opcion || ''
+          }))
+        })
+      }
+    );
 
     const resultado = await respuesta.json();
 
     if (!respuesta.ok) {
-      throw new Error(resultado.mensaje || 'No se pudo registrar el pedido');
+      throw new Error(
+        resultado.mensaje || 'No se pudo registrar el pedido.'
+      );
     }
 
+    // Construir los productos del mensaje
     const productosPedido = carrito.map(item => {
       const opcion = item.opcion ? ` - ${item.opcion}` : '';
       const subtotal = item.precio * item.cantidad;
@@ -417,37 +490,43 @@ formPedido.addEventListener('submit', async (evento) => {
       0
     );
 
-    console.log('Prueba de emojis:', '🍔 🧾 👤 📱 📍 🛒 💰 💳 📝');
+    // Información según el tipo de pedido
+    const informacionEntrega = esDomicilio
+      ? `
+📍 *Dirección:* ${direccion}
+💳 *Método de pago:* ${pagoSeleccionado}
+📝 *Nota:* ${nota || 'Sin nota'}`
+      : `
+🛍️ *Modalidad:* PARA RECOGER`;
 
     const mensaje = `
-\u{1F354} *NUEVO PEDIDO - THEO FOOD AND DRINKS*
+🍔 *NUEVO PEDIDO - THEO FOOD AND DRINKS*
 
-\u{1F9FE} *Pedido número:* ${resultado.pedido.id}
-\u{1F464} *Cliente:* ${nombre}
-\u{1F4F1} *Teléfono:* ${telefono}
-\u{1F4CD} *Dirección:* ${direccion}
+🧾 *Pedido número:* ${resultado.pedido.id}
+👤 *Cliente:* ${nombre}
+📱 *Teléfono:* ${telefono}
+${informacionEntrega}
 
-\u{1F6D2} *PEDIDO:*
+🛒 *PEDIDO:*
 ${productosPedido}
 
-\u{1F4B0} *TOTAL:* ${formatoPrecio.format(total)}
-\u{1F4B3} *Método de pago:* ${metodoPago}
-\u{1F4DD} *Nota:*
-${nota || 'Sin nota'}
+💰 *TOTAL:* ${formatoPrecio.format(total)}
 `;
 
     const urlWhatsApp =
       `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
-    console.log('Mensaje completo:', mensaje);
-    console.log('URL de WhatsApp:', urlWhatsApp);
 
-    if (ventanaWhatsApp) {
-      ventanaWhatsApp.location.href = urlWhatsApp;
+    if (ventanaWhatsApp && !ventanaWhatsApp.closed) {
+      ventanaWhatsApp.location.replace(urlWhatsApp);
+      ventanaWhatsApp.focus();
     } else {
-      window.location.href = urlWhatsApp;
+      // Si el navegador bloquea la ventana, abrir WhatsApp en la pestaña actual
+      window.location.assign(urlWhatsApp);
     }
 
-    aviso.textContent = `¡Pedido #${resultado.pedido.id} registrado correctamente!`;
+    aviso.textContent =
+      `¡Pedido #${resultado.pedido.id} registrado correctamente!`;
+
     aviso.classList.add('visible');
 
   } catch (error) {
@@ -459,10 +538,10 @@ ${nota || 'Sin nota'}
 
     aviso.textContent =
       error.message || 'No se pudo registrar el pedido. Inténtalo nuevamente.';
+
     aviso.classList.add('visible');
   }
 });
-
 
 
 renderizarCarrito();
