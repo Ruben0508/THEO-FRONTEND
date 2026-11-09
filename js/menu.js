@@ -473,7 +473,7 @@ formPedido.addEventListener('submit', async (evento) => {
       productos: carrito.map(item => ({
         producto_id: item.id,
         cantidad: item.cantidad,
-        opcion: item.opcion || ''
+        opcion: item.opcion || '';
         observacion: item.observacion || ''
       }))
     };
