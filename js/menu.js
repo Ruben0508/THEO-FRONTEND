@@ -541,14 +541,13 @@ ${productosPedido}
 `;
 
     const urlWhatsApp =
-      `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
-
-    console.log('URL WhatsApp:', urlWhatsApp);
+      `https://web.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
 
     if (ventanaWhatsApp && !ventanaWhatsApp.closed) {
       ventanaWhatsApp.location.href = urlWhatsApp;
+      ventanaWhatsApp.focus();
     } else {
-      window.open(urlWhatsApp, '_blank');
+      window.location.href = urlWhatsApp;
     }
 
     aviso.textContent =
