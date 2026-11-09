@@ -474,6 +474,7 @@ formPedido.addEventListener('submit', async (evento) => {
         producto_id: item.id,
         cantidad: item.cantidad,
         opcion: item.opcion || ''
+        observacion: item.observacion || ''
       }))
     };
 

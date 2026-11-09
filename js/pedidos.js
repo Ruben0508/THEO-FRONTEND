@@ -296,9 +296,7 @@ function renderizarPedidos() {
             pedido.creado_en
                 ? new Date(pedido.creado_en).toLocaleString('es-CO')
                 : 'No disponible'
-        )}</div>
-                <div><strong>Nota:</strong> ${escaparHTML(pedido.nota || 'Sin nota')}</div>
-            </div>
+        )}
 
             <div class="pedido-card__productos">
                 ${(pedido.productos || []).map(producto => `
@@ -311,8 +309,8 @@ function renderizarPedidos() {
                 ${escaparHTML(producto.nombre)}
 
                 ${producto.opcion
-                    ? ` — ${escaparHTML(producto.opcion)}`
-                    : ''}
+                ? ` — ${escaparHTML(producto.opcion)}`
+                : ''}
             </span>
 
             ${producto.observacion
