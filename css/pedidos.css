@@ -675,3 +675,24 @@
     color: #FF9500;
     font-weight: 800;
 }
+
+.pedido-tipo--domicilio {
+    color: #FF9500;
+    font-weight: 800;
+}
+
+.pedido-producto__info {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pedido-producto__observacion {
+    color: #ff9500;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.pedido-producto__observacion strong {
+    font-weight: 800;
+}

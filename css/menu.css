@@ -1211,3 +1211,35 @@
         font-size: 15px;
     }
 }
+
+/* Observaciones individuales del carrito */
+.carrito-item__observacion {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 12px;
+    padding: 11px 12px;
+
+    color: #ffffff;
+    background: #181818;
+    border: 1px solid #383838;
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+
+    resize: vertical;
+    outline: none;
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.carrito-item__observacion::placeholder {
+    color: #858585;
+}
+
+.carrito-item__observacion:focus {
+    border-color: #FF9500;
+    box-shadow: 0 0 0 3px rgb(255 149 0 / 15%);
+}

@@ -94,6 +94,13 @@ const renderizarCarrito = () => {
         <p class="carrito-item__nombre">
           ${escaparHTML(item.nombre)}
         </p>
+        <textarea
+         class="carrito-item__observacion"
+         data-observacion="${indice}"
+         maxlength="300"
+         rows="2"
+         placeholder="¿Alguna indicación para este producto?"
+        >${escaparHTML(item.observacion || '')}</textarea>      
 
         ${item.opcion
       ? `<p class="carrito-item__opcion">
@@ -271,7 +278,8 @@ listaProductos.addEventListener('click', (evento) => {
       nombre: producto.nombre,
       precio: producto.precio,
       cantidad: cantidad,
-      opcion: opcion
+      opcion: opcion,
+      observacion: ''
     });
 
   }
@@ -331,6 +339,19 @@ contenidoCarrito.addEventListener('click', (evento) => {
   renderizarCarrito();
 });
 
+// Guardar observaciones individuales de cada producto
+contenidoCarrito.addEventListener('input', (evento) => {
+  if (!evento.target.classList.contains('carrito-item__observacion')) {
+    return;
+  }
+
+  const indice = Number(evento.target.dataset.observacion);
+
+  if (carrito[indice]) {
+    carrito[indice].observacion = evento.target.value;
+  }
+});
+
 botonCarrito.addEventListener('click', () => {
   panelCarrito.classList.add('abierto');
   panelCarrito.setAttribute('aria-hidden', 'false');
@@ -384,7 +405,6 @@ botonesTipoPedido.forEach(boton => {
     if (!esDomicilio) {
       direccionCliente.value = '';
       metodoPago.value = '';
-      document.querySelector('#nota-pedido').value = '';
     }
   });
 });
@@ -435,7 +455,6 @@ formPedido.addEventListener('submit', async (evento) => {
   const telefono = document.querySelector('#telefono-cliente').value.trim();
 
   const pagoSeleccionado = metodoPago.value;
-  const nota = document.querySelector('#nota-pedido').value.trim();
 
   const esDomicilio = tipoPedidoSeleccionado === 'Domicilio';
 
@@ -445,6 +464,21 @@ formPedido.addEventListener('submit', async (evento) => {
     aviso.textContent = 'Registrando tu pedido...';
     aviso.classList.add('visible');
 
+    const datosPedido = {
+      cliente_nombre: nombre,
+      cliente_direccion: esDomicilio ? direccion : '',
+      cliente_telefono: telefono,
+      metodo_pago: esDomicilio ? pagoSeleccionado : null,
+      tipo_pedido: tipoPedidoSeleccionado,
+      productos: carrito.map(item => ({
+        producto_id: item.id,
+        cantidad: item.cantidad,
+        opcion: item.opcion || ''
+      }))
+    };
+
+    console.log('DATOS ENVIADOS AL BACKEND:', datosPedido);
+
     const respuesta = await fetch(
       'https://theo-backend-1j17.onrender.com/api/pedidos',
       {
@@ -452,20 +486,7 @@ formPedido.addEventListener('submit', async (evento) => {
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          cliente_nombre: nombre,
-          cliente_direccion: esDomicilio ? direccion : '',
-          cliente_telefono: telefono,
-          metodo_pago: esDomicilio ? pagoSeleccionado : null,
-          nota: esDomicilio ? nota : '',
-          tipo_pedido: tipoPedidoSeleccionado,
-
-          productos: carrito.map(item => ({
-            producto_id: item.id,
-            cantidad: item.cantidad,
-            opcion: item.opcion || ''
-          }))
-        })
+        body: JSON.stringify(datosPedido)
       }
     );
 
@@ -482,7 +503,11 @@ formPedido.addEventListener('submit', async (evento) => {
       const opcion = item.opcion ? ` - ${item.opcion}` : '';
       const subtotal = item.precio * item.cantidad;
 
-      return `${item.cantidad}x ${item.nombre}${opcion} - ${formatoPrecio.format(subtotal)}`;
+      const observacion = item.observacion
+        ? `\n   📝 Observación: ${item.observacion}`
+        : '';
+
+      return `${item.cantidad}x ${item.nombre}${opcion} - ${formatoPrecio.format(subtotal)}${observacion}`;
     }).join('\n');
 
     const total = carrito.reduce(
@@ -516,12 +541,12 @@ ${productosPedido}
     const urlWhatsApp =
       `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensaje)}`;
 
+    console.log('URL WhatsApp:', urlWhatsApp);
+
     if (ventanaWhatsApp && !ventanaWhatsApp.closed) {
-      ventanaWhatsApp.location.replace(urlWhatsApp);
-      ventanaWhatsApp.focus();
+      ventanaWhatsApp.location.href = urlWhatsApp;
     } else {
-      // Si el navegador bloquea la ventana, abrir WhatsApp en la pestaña actual
-      window.location.assign(urlWhatsApp);
+      window.open(urlWhatsApp, '_blank');
     }
 
     aviso.textContent =

@@ -302,17 +302,36 @@ function renderizarPedidos() {
 
             <div class="pedido-card__productos">
                 ${(pedido.productos || []).map(producto => `
-                    <div class="pedido-producto">
-                        <span>
-                            ${escaparHTML(producto.cantidad)} x
-                            ${escaparHTML(producto.nombre)}
-                            ${producto.opcion
-                ? ` — ${escaparHTML(producto.opcion)}`
+    <div class="pedido-producto">
+
+        <div class="pedido-producto__info">
+
+            <span>
+                ${escaparHTML(producto.cantidad)} x
+                ${escaparHTML(producto.nombre)}
+
+                ${producto.opcion
+                    ? ` — ${escaparHTML(producto.opcion)}`
+                    : ''}
+            </span>
+
+            ${producto.observacion
+                ? `
+                    <small class="pedido-producto__observacion">
+                        <strong>Observación:</strong>
+                        ${escaparHTML(producto.observacion)}
+                    </small>
+                `
                 : ''}
-                        </span>
-                        <strong>${formatoPrecio.format(Number(producto.subtotal) || 0)}</strong>
-                    </div>
-                `).join('')}
+
+        </div>
+
+        <strong>
+            ${formatoPrecio.format(Number(producto.subtotal) || 0)}
+        </strong>
+
+    </div>
+`).join('')}
             </div>
 
             <p class="pedido-total">
